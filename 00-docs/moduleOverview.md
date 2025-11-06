@@ -65,11 +65,11 @@ Cada pràctica ha d’acabar amb un petit apartat on s’indiqui:
 
 ## 🔹 Com es calcula la nota final
 
-| Part del curs            | Pes  | Condicions                                                |
-| |- | |
-| **Pràctiques**           | 70 % | Només es compten si estan ben fetes i són originals.      |
-| **Examen escrit**        | 30 % | Cal treure mínim un 4 per fer mitjana amb les pràctiques. |
-| **Nota final del mòdul** | —    | (Nota pràctiques × 0,7) + (Nota examen × 0,3)             |
+| Part del curs            | Pes  | Condicions                                                |  
+|-- |-- |- |
+| **Pràctiques**           | 70 % | Només es compten si estan ben fetes i són originals.      |  
+| **Examen escrit**        | 30 % | Cal treure mínim un 4 per fer mitjana amb les pràctiques. |  
+| **Nota final del mòdul** | —    | (Nota pràctiques × 0,7) + (Nota examen × 0,3)             |  
 
 
 ## 🔹 Recomanacions finals
