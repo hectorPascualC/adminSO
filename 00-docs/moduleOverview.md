@@ -52,15 +52,15 @@ Cada pràctica ha d’acabar amb un petit apartat on s’indiqui:
 
 ## 🔹 Com es puntuen les pràctiques (fins a 10 punts)
 
-| Què es valora                    | Descripció                                                        | Punts   |
+| Què es valora                    | Descripció                                                        | Punts   |  
 |-- |-- |- |
-| **1. Terminis**                  | Si s’entrega a temps. Retards descompten:                         | **2**   |
-|                                  | A temps: 2 / 1 dia tard: 1 / 2 dies: –1 / 3 dies: –2 / 4+ dies: 0 |         |
-| **2. Presentació**               | L’ordre, claredat i estructura del document.                      | **1**   |
-| **3. Explicació del procés**     | Com s’ha resolt la pràctica, decisions i problemes trobats.       | **2**   |
-| **4. Funcionament del projecte** | Si el que es demana realment funciona.                            | **3**   |
-| **5. Imatges pròpies**           | Pantallassos explicats i amb el nom/cognoms visibles.             | **1.5** |
-| **6. Fonts i IA**                | Citació de fonts i ús correcte de la IA (amb prompts inclosos).   | **0.5** |
+| **1. Terminis**                  | Si s’entrega a temps. Retards descompten:                         | **2**   |  
+|                                  | A temps: 2 / 1 dia tard: 1 / 2 dies: –1 / 3 dies: –2 / 4+ dies: 0 |         |  
+| **2. Presentació**               | L’ordre, claredat i estructura del document.                      | **1**   |  
+| **3. Explicació del procés**     | Com s’ha resolt la pràctica, decisions i problemes trobats.       | **2**   |  
+| **4. Funcionament del projecte** | Si el que es demana realment funciona.                            | **3**   |  
+| **5. Imatges pròpies**           | Pantallassos explicats i amb el nom/cognoms visibles.             | **1.5** |  
+| **6. Fonts i IA**                | Citació de fonts i ús correcte de la IA (amb prompts inclosos).   | **0.5** |  
 
 
 ## 🔹 Com es calcula la nota final
