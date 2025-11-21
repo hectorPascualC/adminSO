@@ -9,7 +9,7 @@ El curs s’organitza en tres blocs principals:
 
 ## 🔹 Part pràctica
 - **Només hi haurà 2 pràctiques inicials.**
-- **Aquestes pràctiques NO són puntuables**, però **sí obligatòries**.
+- **Aquestes pràctiques NO són puntuables**
 - L’**examen pràctic estarà basat exactament en les tasques d’aquestes pràctiques**; per tant, cal fer-les i entendre-les bé.
 - Es revisaran i retornaran amb comentaris.
 
