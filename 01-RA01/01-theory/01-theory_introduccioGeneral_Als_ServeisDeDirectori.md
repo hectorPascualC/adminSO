@@ -27,9 +27,9 @@ Apareixen beneficis immediats:
 - administració fàcil i escalable a centenars d’usuaris.
 
 ## 🔸**1.2. Què és un servei de directori? Definició**
-> Un servei de directori és una **base de dades jeràrquica**, optimitzada per consultes ràpides, que emmagatzema i gestiona la informació d’identitat, permisos i configuracions d’una organització.
+Un servei de directori és una **base de dades jeràrquica**, optimitzada per consultes ràpides, que emmagatzema i gestiona la informació d’identitat, permisos i configuracions d’una organització.
 
-Característiques principals:
+### ▫ Característiques principals:
 - **Arbre jeràrquic (DIT)** en lloc de taules SQL  
 - Pensat per **consultes molt ràpides**  
 - Manté **objectes** (usuaris, grups, equips…)  
