@@ -38,7 +38,7 @@ Els atributs tenen:
   * atribut opcional (MAY)
   * atribut únic o repetible
 
-El llibre defineix sintaxis com:
+Tenim sintaxis com:
 
 * *IA5String*
 * *DirectoryString*
@@ -278,7 +278,7 @@ Crear esquemes personals requereix:
 
 ### **2.7.3 Definir una política estricta de nomenclatura**
 
-Exemples del llibre:
+Ex:
 
 * `uid=mpuig`
 * `cn=professors`
