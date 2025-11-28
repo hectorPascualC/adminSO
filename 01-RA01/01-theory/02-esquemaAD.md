@@ -1,387 +1,379 @@
-# **2. Esquema del AD**
-
-## **2.1. Introducció a l'esquema d'un AD**
-
-En un servei de directori, ja sigui **Active Directory (AD)** o **OpenLDAP**, l'**esquema** és el component fonamental que defineix quins objectes pot contenir el directori i quina forma han de tenir
-
-És el **model de dades** del directori, l'equivalent al *plànol estructural* que garanteix:
-* coherència
-* integritat
-* compatibilitat entre les entrades
-
-L'esquema determina:
-* quines **classes d'objecte** poden existir
-* quins **atributs obligatoris** (MUST) i opcionals (MAY) conté cada objecte
-* la **sintaxi** i tipus de dades que poden tenir els atributs
-* la **jerarquia** i relacions dins del DIT (Directory Information Tree)
-* les **regles de validació** i restriccions
-
-Sense un esquema, el directori seria un contenidor caòtic, incoherent i insegur
-
-L'esquema és el mecanisme que garanteix que cada entrada compleix una definició formal i validable
-
-<br>
-<br>
-
-## **2.2. Components de l'esquema: atributs, classes i regles**
-
-### **2.2.1. Atributs (Attributes)**
-
-Un atribut és una **unitat bàsica d'informació** dins d'un objecte
-
-Un atribut té:
-* **Nom:** cn, uid, mail, sn…
-* **Sintaxi:** el format que pot tenir el valor
-* **Regles de cardinalitat:** SINGLE-VALUE o MULTI-VALUE
-* **Comparadors:** com s'avaluen per ordenar o comparar
-
-Ex real:
-```
-attributetype ( 2.5.4.3 NAME 'cn'
-    DESC 'Common Name'
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
-    SINGLE-VALUE )
-```
-
-Interpretació:
-* **2.5.4.3**      → OID oficial de l'atribut
-* **NAME 'cn'**    → nom intern
-* **DESC**         → descripció humana
-* **SYNTAX**       → tipus de dada (DirectoryString)
-* **SINGLE-VALUE** → només pot aparèixer una vegada
+# Capítol 2 — Esquema del Servei de Directori
 
 ---
 
-### **2.2.2. Sintaxis importants de l'esquema**
+# **2. Introducció a l'esquema d'un servei de directori**
 
-Els atributs han de complir una sintaxi que defineix **quins valors són vàlids**
+En qualsevol servei de directori —ja sigui **Active Directory (AD)** o **OpenLDAP**— l'**esquema** és el component que defineix com s'emmagatzema la informació i quins objectes poden existir. Actua com el **model de dades formal** del directori, igual que l'esquema d'una base de dades relacional.
 
-**a. IA5String**
-Cadena ASCII simple
-Útil per valors que no poden contenir accents ni caràcters especials
-Ex: `uid`.
+L'esquema proporciona:
 
-**b. DirectoryString**
-Cadena Unicode en UTF-8
-És la sintaxi més flexible i habitual
-Ex: `cn`, `sn`, `description`
+* el conjunt de **classes d'objecte** existents
+* els **atributs obligatoris i opcionals** de cada objecte
+* les **sintaxis** possibles dels valors
+* les **regles de validació**
+* les relacions i estructura dins l'arbre del directori (**DIT**)
 
-**c. DN (Distinguished Name)**
-Cadena que representa un **camí complet dins del DIT**
-Ex:
+El directori no és una col·lecció arbitrària d'entrades: és un sistema **estrictament regulat** perquè totes les dades segueixin una forma coherent, interoperable i validable.
+
+---
+
+# **2.1. Atributs i sintaxis de l'esquema**
+
+Cada objecte del directori està format per **atributs**. Un atribut és una peça d'informació definida amb:
+
+* un **nom** (p. ex. `cn`, `sn`, `uid`)
+* una **sintaxi** (tipus de dada que pot contenir)
+* si és **SINGLE-VALUE** o **MULTI-VALUE**
+* opcionalment, un comparador o regles específiques
+
+## **Sintaxis més importants
+
+### **Exemple real de fragment d'esquema d'Active Directory (AD)**
+
+A continuació es mostra un **fragment REAL** de l'esquema d'Active Directory tal com existeix dins: `CN=Schema,CN=Configuration,DC=empresa,DC=local`
+
+Aquest fragment defineix la classe d'objecte **user** dins d'AD:
+
 ```
-uid=jlopez,ou=Usuaris,dc=empresa,dc=local
+classSchema
+    cn: user
+    GovernedID: 1.2.840.113556.1.5.9
+    objectClassCategory: 1
+    subClassOf: organizationalPerson
+    mayContain:
+        * displayName
+        * telephoneNumber
+        * physicalDeliveryOfficeName
+        * wWWHomePage
+        * userPrincipalName
+        * sAMAccountName
+        * unicodePwd
+    mustContain:
+        * objectClass
+    systemMustContain:
+        * objectSid
+        * sAMAccountType
+    systemMayContain:
+        * lastLogon
+        * userAccountControl
+        * logonHours
+        * pwdLastSet
 ```
 
-**d) NumericString**
-Només conté dígits
-Ex: `employeeNumber`
+**Explicació resumida:**
 
-**e) Boolean**
-Només pot ser:
+* **objectClassCategory 1** → és una classe estructural.
+* **subClassOf organizationalPerson** → hereta atributs com cn, sn, title…
+* **mayContain** → atributs opcionals d'un usuari AD.
+* **mustContain** → atributs obligatoris definits per l'esquema.
+* **systemMustContain / systemMayContain** → atributs interns que AD afegeix i controla automàticament.
+
+Això és EXACTAMENT el que AD utilitza per validar com ha de ser un objecte *usuari*. A diferència d'OpenLDAP, AD no utilitza fitxers `.schema`, sinó que el seu esquema està emmagatzemat **dins del mateix directori** com a objectes
+
+---
+
+# **2.2. Definició formal d'atributs: attributetype**
+
+Quan un atribut està definit a l'esquema, s'utilitza una estructura com aquesta:
 ```
-TRUE / FALSE
+attributetype ( 2.5.4.3 NAME 'cn' DESC 'Common Name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+```
+Això significa:
+* **2.5.4.3** → OID oficial del camp `cn`
+* **NAME 'cn'** → nom de l'atribut
+* **SYNTAX DirectoryString** → accepta text Unicode
+**No la crees tu; ve predefinida per l'estàndard LDAP.** És una sintaxi que permet:
+   * qualsevol caràcter Unicode
+   * accents, caràcters especials, símbols
+   * llargades variades
+* **SINGLE-VALUE** → només pot tenir un valor
+
+S’utilitza per atributs com `cn`, `sn`, `description`, `displayName`.
+Permet emmagatzemar **text lliure, internacional i flexible**, i LDAP valida automàticament que el contingut sigui UTF‑8.
+
+Aquest tipus de definicions **ja venen amb LDAP o AD**, no les crees a classe.  
+Modificades incorrectament **poden impedir l'inici del servei** (en OpenLDAP el procés `slapd`).
+
+---
+
+# **2.3. Classes d'objecte (objectClass)**
+
+Les classes d'objecte defineixen **quin tipus d'entrada és** i **quins atributs pot contenir**. N'hi ha de tres tipus:
+
+## **1) Estructurals (Structural)**
+Defineixen el "tipus real" d'un objecte. Són obligatòries i no poden canviar un cop creat l'objecte.
+
+### Exemples:
+* **inetOrgPerson** — representa una persona real
+* **posixAccount** — afegeix atributs per login Unix
+* **organizationalUnit** — contenidor del DIT
+* **device** — objectes que representen equips o dispositius
+
+
+## **2) Auxiliars (Auxiliary)**
+Afegeixen atributs addicionals a un objecte que ja té una classe estructural.
+
+### Exemples:
+* **shadowAccount** — atributs de contrasenya Unix (`shadowLastChange`, etc.)
+* **sambaSamAccount** — atributs per compatibilitat amb Windows (SID de Windows, contrasenya NTLM…)
+
+### Sobre “SID de Windows” i “contrasenya NT”
+* **SID** = “Security Identifier”, identificador únic del sistema Windows. Funciona com un “DNI digital”.  
+* **Contrasenya NT (NTLM Hash)** = hash MD4 de la contrasenya Unicode. No és segur, però encara es fa servir per compatibilitat.
+
+
+## **3) Abstractes (Abstract)**
+No es poden instanciar directament. Serveixen com a base perquè altres classes hi heretin.
+
+### Exemple:
+* **top** — totes les altres classes deriven d'aquesta
+
+`top` és equivalent a `Object` en Java:  
+
+> No es crea mai un objecte *top*, però tots els objectes LDAP contenen `objectClass: top` perquè hereten d'ella.
+
+---
+
+# **2.4. Exemple real d'una definició d'objectClass**
+
+```
+objectclass ( 2.16.840.1.113730.3.2.2 NAME 'inetOrgPerson' SUP organizationalPerson STRUCTURAL MUST ( cn $ sn ) MAY  ( userPassword $ mail $ telephoneNumber $ uid $ givenName $ displayName ) )
+
+```
+Explicació:
+* Hereta de `organizationalPerson`
+* És una classe **STRUCTURAL**
+* Atributs obligatoris → `cn`, `sn`
+* Atributs opcionals → `mail`, `uid`, `telephoneNumber`, etc.
+* El símbol `$` separa atributs múltiples dins la mateixa categoria
+
+---
+
+# **2.5. Combinació de classes: un objecte amb múltiples rols**
+LDAP permet que un objecte tingui **diverses objectClass**, la qual cosa permet donar-li múltiples funcions.
+
+Exemple:
+```
+objectClass: inetOrgPerson objectClass: posixAccount objectClass: shadowAccount
+
+```
+Això vol dir que un mateix usuari pot:
+* autenticar-se al directori (inetOrgPerson)
+* iniciar sessió a servidors Linux (posixAccount → UID/GID, homeDirectory, loginShell)
+* tenir polítiques de contrasenya Unix (shadowAccount)
+
+---
+
+# **2.6. El DIT (Directory Information Tree)**
+
+És la representació jeràrquica del directori aproximadament com un sistema de carpetes.
+
+Exemple:
+```
+dc=empresa,dc=local 
+├── ou=Usuaris 
+│     ├── uid=aribas 
+│     └── uid=mpuig 
+├── ou=Grups 
+│     ├── cn=professors 
+│     └── cn=administradors 
+└── ou=Equips 
+      ├── cn=PC01 
+      └── cn=PC02
+```
+Un bon disseny del DIT facilita:
+* permisos
+* delegació d'administració
+* aplicació de polítiques
+* automatització amb scripts
+
+Un DIT mal dissenyat (massa profund i caòtic) és difícil de mantenir i impossible de delegar correctament.
+
+---
+
+# **2.7. Nomenclatura del DN: RDN, OU i DC**
+
+El **DN (Distinguished Name)** és l'adreça completa d'un objecte.  
+Els seus components:
+
+* **RDN (Relative Distinguished Name)** → identificador immediat (`uid=mcarbo`)
+* **Contenidor (OU)** → unitat organitzativa (`ou=Usuaris`)
+* **Arrel del domini** → `dc=empresa,dc=local`
+
+Un DN és la suma jeràrquica de tots ells.
+
+```
+uid=mpuig,ou=Professors,ou=Departament,dc=ins-torreraja,dc=cat
 ```
 
 ---
 
-### **2.2.3. Classes d'objecte (objectClass)**
+# **2.8. Grups POSIX**
 
-Una **objectClass** defineix:
-* la naturalesa de l'objecte
-* els atributs obligatoris (MUST)
-* els atributs opcionals (MAY)
-* si és estructural, abstracte o auxiliar
+Un **posixGroup** és un grup compatible amb Unix/Linux.  
 
-Les classes d'objecte es classifiquen en:
+Els seus atributs essencials:
+* `cn` — nom del grup
+* `gidNumber` — ID numèric del grup
+* `memberUid` — membres del grup
 
-**1. Estructurals (Structural)**
-Defineixen objectes concrets
-
-Ex:
-* inetOrgPerson
-* posixAccount
-* organizationalUnit
-* device
-
-**2. Auxiliars (Auxiliary)**
-Afegeixen atributs addicionals a una classe estructural
-
-Ex:
-* shadowAccount
-* sambaSamAccount
-
-**3. Abstractes (Abstract)**
-Base sobre la qual hereten altres classes
-
-Ex:
-* top
-
-<br>
-<br>
-
-## **2.3. Classes predeterminades més habituals**
-
-### **OpenLDAP**
-
-**Classes d'usuari:**
-* **inetOrgPerson** → usuaris humans (atributs personals i de contacte)
-* **posixAccount**  → atributs per login Unix
-* **shadowAccount** → control de contrasenyes Unix
-
-**Classes de grup:**
-* **posixGroup** → grups Unix
-
-**Infraestructura i dispositius:**
-* **organizationalUnit**
-* **device**
-* **ipHost**
-
-### **Active Directory**
-
-**Usuaris i grups:**
-* **user**
-* **group**
-
-**Infraestructura:**
-* **computer**
-* **organizationalUnit**
-* **contact**
-
-<br>
-<br>
-
-## **2.4. Ex complet d'un esquema real**
-
-A continuació tens un fragment real d'esquema (simplificat):
+Exemple:
 ```
-objectclass ( 2.16.840.1.113730.3.2.2
-    NAME 'inetOrgPerson'
-    SUP organizationalPerson
-    STRUCTURAL
-    MUST ( cn $ sn )
-    MAY  ( userPassword $ mail $ telephoneNumber $ uid $
-           givenName $ displayName )
-)
+objectClass: posixGroup cn: professors gidNumber: 5020 memberUid: aribas memberUid: mpuig
+
 ```
 
-Interpretació:
-* Es tracta de la classe **inetOrgPerson**
-* Hereta d'**organizationalPerson**
-* Ha de tenir obligatòriament **cn** i **sn**
-* Pot tenir atributs addicionals com **mail**, **uid**, **telephoneNumber**
+---
 
+# **2.9. LDIF (LDAP Data Interchange Format)**
 
-## **2.5. Combinació de classes: un objecte amb múltiples funcions**
+LDIF és un format estàndard (RFC 2849) utilitzat per **importar, modificar o exportar** objectes en qualsevol directori LDAP
 
-LDAP permet que un mateix objecte contingui **múltiples objectClass**, de manera que un usuari pot complir molts rols alhora
+No és documentació: **LDAP interpreta LDIF com ordres administratives**
 
-Ex:
+---
+
+## **Exemple complet d’un fitxer LDIF (alta d’un usuari)**
+
 ```
+dn: uid=jroca,ou=Usuaris,dc=empresa,dc=local
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
+cn: Jordi Roca
+sn: Roca
+uid: jroca
+mail: jroca@empresa.local
+uidNumber: 1201
+gidNumber: 1201
+homeDirectory: /home/jroca
+loginShell: /bin/bash
+userPassword: {SSHA}kjsdf9832jkfhsdf9832f==
 ```
 
-Això permet:
-* Autenticació al directori     → `inetOrgPerson`
-* Login Unix (UID/GID)          → `posixAccount`
-* Control de contrasenya Unix   → `shadowAccount`
-* Definir homeDirectory i shell → `posixAccount`
+### **Interpretació del fitxer**
 
-**Un sol objecte > un usuari LDAP i un usuari Linux simultàniament**
+* **dn:** ubicació exacta dins del DIT on es crearà l’objecte.
+* **objectClass:** rol(s) de l’objecte (usuari LDAP + usuari Unix + atributs de contrasenya).
+* **cn, sn, uid, mail:** informació personal.
+* **uidNumber / gidNumber:** identificadors Unix.
+* **homeDirectory / loginShell:** configuració per login Unix.
+* **userPassword:** contrasenya en format hash SSHA.
 
 ---
 
-## **2.6. El DIT (Directory Information Tree)**
+# **Com s’executa un LDIF segons el tipus de directori**
 
-El DIT és l'arbre jeràrquic que organitza totes les entrades del directori
-És comparable a un *arbre de carpetes*
+## **1. OpenLDAP (Linux/Unix)**
 
-Ex:
+En sistemes basats en Linux, LDIF s’executa amb les eines pròpies d’OpenLDAP, com:
+
+```
+ldapadd -x -D "cn=admin,dc=empresa,dc=local" -W -f alta-usuari.ldif
+```
+
+* **ldapadd** → importa noves entrades
+* **ldapmodify** → modifica entrades existents
+* **ldapdelete** → elimina entrades
+
+Aquest és el cas més habitual en entorns formatius o de laboratori.
+
+---
+
+## **🟦 2. Active Directory (Windows)**
+
+AD també utilitza LDIF, però amb l’eina pròpia **ldifde.exe**, que s’executa des de:
+
+* el servidor Windows del Directori Actiu
+* CMD
+* PowerShell
+
+Exemple:
+
+```
+ldifde -i -f alta-usuari.ldif
+```
+
+* **ldifde -i** → mode importació
+* **-f** → fitxer LDIF
+
+---
+
+# **On s’executa realment un LDIF?**
+
+| Directori            | SO                 | Eina d’execució de LDIF               |
+| -------------------- | ------------------ | ------------------------------------- |
+| **OpenLDAP**         | Linux/Unix         | `ldapadd`, `ldapmodify`, `ldapdelete` |
+| **Active Directory** | Windows            | `ldifde.exe`                          |
+| **Altres LDAP**      | Solaris, AIX, BSD… | Eines pròpies + compatibilitat LDIF   |
+
+---
+
+# **Què passa internament quan s’executa un LDIF**
+
+LDAP fa:
+
+1. Llegeix el fitxer línia per línia.
+2. Valida la sintaxi del DN.
+3. Comprova que les objectClass existeixen a l’esquema.
+4. Valida la sintaxi dels atributs.
+5. Crea o modifica l’entrada.
+6. Actualitza la base de dades del directori.
+
+Si és correcte retorna el següent missatge:
+
+```
+adding new entry "uid=jroca,ou=Usuaris,dc=empresa,dc=local"
+```
+
+Si hi ha errors:
+
+* `ObjectClassViolation`
+* `Invalid DN Syntax`
+* `Entry Already Exists`
+
+---
+
+# **Representació visual del resultat dins del DIT**
+
+**Abans:**
+
 ```
 dc=empresa,dc=local
- ├── ou=Usuaris
- │     ├── uid=aribas
- │     └── uid=mpuig
- ├── ou=Grups
- │     ├── cn=professors
- │     └── cn=administradors
- └── ou=Equips
-       ├── cn=PC01
-       └── cn=PC02
+ └── ou=Usuaris
 ```
 
-La profunditat i organització del DIT afecta directament:
-* rendiment
-* permisos
-* administració
-* seguretat
+**Després d’executar el LDIF:**
 
----
-
-## **2.7. Nomenclatura LDAP: DN, RDN i components**
-
-### 🔹 **DN (Distinguished Name)**
-
-És l'identificador **únic i absolut** d'una entrada
-
-Ex:
+Estructura de contingut:
 ```
-uid=mcarbo,ou=Usuaris,dc=empresa,dc=local
+dc=empresa,dc=local
+ └── ou=Usuaris
+       └── uid=jroca
 ```
 
-### 🔹 Parts del DN:
-
-* **RDN:** `uid=mcarbo`
-* **Contenidor superior:** `ou=Usuaris`
-* **Arrel del domini:** `dc=empresa,dc=local`
-
-**DN = RDN + contenidors + DCs**
-
----
-
-## **2.8. Grups POSIX**
-
-Un grup POSIX és un grup compatible amb sistemes Unix
-
-Atributs:
-
-* **cn:** nom del grup
-* **gidNumber:** identificador numèric del grup
-* **memberUid:** usuaris membres (UIDs)
-
-Ex:
+A Unix-Linux-Windows:
 ```
-dn: cn=professors,ou=Grups,dc=empresa,dc=local
-objectClass: posixGroup
-gidNumber: 5020
-memberUid: aribas
-memberUid: mpuig
-```
+ldapsearch -x -b "uid=jroca,ou=Usuaris,dc=empresa,dc=local"
 
----
-
-## **2.9. LDIF: definició, funcions i Ex**
-
-**LDIF (LDAP Data Interchange Format)** és un format de text per:
-* crear objectes
-* modificar objectes
-* importar dades massives
-* definir esquemes
-* fer backup de parts del directori
-
-Ex: alta d'un usuari POSIX + inetOrgPerson
-```
-dn: uid=mpuig,ou=Usuaris,dc=empresa,dc=local
+dn: uid=jroca,ou=Usuaris,dc=empresa,dc=local
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
-cn: Marc Puig
-sn: Puig
-uid: mpuig
-mail: mpuig@empresa.local
-uidNumber: 1105
-gidNumber: 1105
-homeDirectory: /home/mpuig
+cn: Jordi Roca
+sn: Roca
+uid: jroca
+mail: jroca@empresa.local
+uidNumber: 1201
+gidNumber: 1201
+homeDirectory: /home/jroca
 loginShell: /bin/bash
-userPassword: {SSHA}34KJ34lkj324lkj23l4kj==
+userPassword:: e1NTSEF9a2pzZGY5ODMyamtmaHNkZjk4MzJmPT0=
+shadowLastChange: 20000
+shadowMax: 99999
+shadowWarning: 7
 ```
 
----
-
-## **2.10. Diferència entre esquemes estàndard i esquemes personalitzats**
-
-* Esquemes estàndard d'OpenLDAP 
-* **core.schema**
-* **inetorgperson.schema**
-* **nis.schema**
-* **cosine.schema**
-
-* Esquema per defecte d'Active Directory 
-* **user**
-* **group**
-* **computer**
-* **organizationalUnit**
-
-* Esquemes personalitzats. Quan cal un atribut propi, cal crear-lo
-
-Ex real (simplificat):
-```
-attributetype ( 1.3.6.1.4.1.99999.1.1
-    NAME 'departamentID'
-    DESC 'Identificador intern de departament'
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
-```
-
-Això defineix un atribut personalitzat **departamentID**
-
----
-
-## **2.11. Bones pràctiques en la definició de l'esquema**
-
-### **1. No crear OUs amb noms de persones**
-
-Perquè:
-* són estructures temporals
-* la persona pot marxar o canviar de rol
-* trenca la lògica d'organització
-* dificulta permisos i polítiques
-
----
-
-### **2. Separar clarament els tipus d'objectes**
-
-Ex correcte:
-```
-ou=Usuaris
-ou=Equips
-ou=Grups
-ou=Departaments
-```
-
-Evita confusions i facilita:
-* delegació
-* permisos
-* scripts
-* manteniment
-
----
-
-### **3. Política estricta de nomenclatura**
-
-Objectius:
-* evitar duplicats
-* facilitar l'administració
-* mantenir consistència global
-
-Bones pràctiques:
-* `uid` sempre en minúscules
-* grups en plural (`cn=professors`)
-* equips amb prefix (`PC-A101`)
-
----
-
-### **4. No modificar esquemes estàndard**
-
-És molt perillós perquè:
-* pot trencar l'inici del servei (slapd)
-* pot fer inservible AD
-* és inreversible sense backup
-* afecta tota la infraestructura
-
----
-
-### **5. Evitar DIT massa profunds**
-
-Un DIT excessivament llarg:
-```
-OU=Barcelona → OU=Edifici A → OU=Planta 3 → OU=Pasillo Est → ...
-```
-
-Provoca:
-* polítiques difícils de gestionar
-* permisos incontrolables
-* recerques lentes
-* confusió a llarg termini
 
