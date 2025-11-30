@@ -25,7 +25,8 @@ style: |
 # RA01: Capítol 3
 ## Controladors de Domini i Arquitectures AD/LDAP
 
-ASIX - Administració de Sistemes Operatius i Xarxes 
+ASIX - Administració de Sistemes i Xarxes 
+Mòdul 0374 - Administració de Sistemes Operatius
 Professor: Hèctor Pascual
 
 ---
