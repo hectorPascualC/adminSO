@@ -3,7 +3,7 @@ marp: true
 paginate: true
 theme: default
 
-header: "RA01 – Servei de Directori · Capítol 3 – Controladors de Domini i Arquitectures AD/LDAP"
+header: "RA01 – Servei de Directori · Capítol 3 – Controladors de Domain i Arquitectures AD/LDAP"
 footer: "Mòdul 0374 – Administració de Sistemes Operatius"
 
 style: |
@@ -23,18 +23,18 @@ style: |
 
 <!-- Slide 1 -->
 # RA01: Capítol 3
-## Controladors de Domini i Arquitectures AD/LDAP
+## Controladors de Domain i Arquitectures AD/LDAP
 
-ASIX - Administració de Sistemes i Xarxes 
-Mòdul 0374 - Administració de Sistemes Operatius
-Professor: Hèctor Pascual
+**ASIX**       - Administració de Sistemes i Xarxes 
+**Mòdul 0374** - Administració de Sistemes Operatius
+**Professor**  -  Hèctor Pascual
 
 ---
 
 <!-- Slide 2 -->
-# 🔸 Objectius del capítol
+# 🔸2.0. Objectius del capítol
 
-- Entendre què és un **Controlador de Domini (DC)**  
+- Entendre què és un **Controlador de Domain (DC)**  
 - Comprendre l’arquitectura d’**Active Directory**  
 - Distingir domini, arbre i bosc  
 - Explicar el concepte de **Global Catalog**  
@@ -45,22 +45,22 @@ Professor: Hèctor Pascual
 ---
 
 <!-- Slide 3 -->
-# 🔸 Què és un Controlador de Domini?
+# 🔸3.0. Què és un Controlador de Domain?
 
 Un **DC (Domain Controller)** és el servidor que:
 
-- emmagatzema la base del directori (NTDS.dit)  
-- valida usuaris i equips  
-- emet tickets Kerberos  
-- replica la informació  
-- aplica polítiques de seguretat
+- Emmagatzema la base del directori (NTDS.dit)  
+- Valida usuaris i equips  
+- Emet tickets Kerberos  
+- Replica la informació  
+- Aplica polítiques de seguretat
 
-És el **nucli del servei de directori** a Windows.
+És el **nucli del servei de directori** a Windows
 
 ---
 
 <!-- Slide 4 -->
-# 🔸 Funcions d’un DC
+# 🔸4.0. Funcions d’un DC
 
 - Autenticació (Kerberos)  
 - Autorització  
@@ -71,20 +71,84 @@ Un **DC (Domain Controller)** és el servidor que:
 
 ---
 
-<!-- Slide 5 -->
-# 🔸 Arquitectura AD: Domini - Arbre - Bosc
+<!-- Slide 4.1 -->
 
-- **Domini**: unitat bàsica d’administració  
-- **Arbre** : conjunt de dominis amb espai de noms comú  
-- **Bosc**  : conjunt d’arbres que comparteixen esquema i GC
+# 🔸4.1. Què és la replicació entre controladors de domini?
+
+* **Cada DC té la seva pròpia còpia de la base NTDS.dit**
+No existeix un servidor central del directori.  
+Tots els DC mantenen una còpia completa i operativa.
+
+* **Alta disponibilitat i consistència**
+Si un DC falla, un altre continua autenticant.  
+Els canvis es propaguen perquè tots mantinguin la mateixa informació.
+
+* **Intra-site i inter-site**
+    * **Intra-site:** ràpida i freqüent, dins la mateixa seu.  
+    * **Inter-site:** optimitzada i comprimida per connexions entre seus diferents.
+
+---
+
+<!-- Slide 4.1 -->
+
+# 🔸4.1. Què és la replicació entre controladors de domini?
+
+* **Replicació = sincronització de canvis**
+    Els DCs s’envien automàticament:
+    * Altes i baixes d’usuaris
+    * Canvis de contrasenya
+    * Modificacions d’OUs
+    * Canvis en grups o polítiques
+    * Esborrats d’objectes
+
+---
+
+<!-- Slide 4.2 -->
+
+# 🔸4.2 Per què es té més d’un controlador de domini?
+
+* **Alta disponibilitat**
+Si un DC falla, un altre continua autenticant usuaris i equips.
+
+* **Redundància**
+Cada DC té una còpia pròpia de la base NTDS.dit.  
+La pèrdua d’un DC no afecta el servei.
+
+* **Reducció de latència**
+Es col·loquen DCs a cada seu per evitar dependència de la WAN i millorar la velocitat d’inici de sessió.
+
+---
+
+<!-- Slide 4.2 -->
+
+# 🔸4.2 Per què es té més d’un controlador de domini?
+
+* **Balanceig de càrrega**
+Molts usuaris autenticant-se alhora es reparteixen entre diversos DCs.
+
+* **Escalabilitat i tolerància a fallades**
+Els canvis es repliquen entre DCs.  
+El sistema és més robust, segur i fàcil de mantenir.
+
+---
+
+<!-- Slide 5 -->
+
+# 🔸5.0 Arquitectura AD: Domain - Tree - Forest
+
+*Domini - Arbre - Bosc*
+
+- **Domain**: unitat bàsica d’administració  
+- **Tree** : conjunt de dominis amb espai de noms comú  
+- **Forest**  : conjunt d’arbres que comparteixen esquema i GC
 
 ---
 
 <!-- Slide 6 -->
-# 🔸 Exemple d’arbre i bosc
+
+# 🔸5.0 Exemple de tree i forest
 
 ```
-
 empresa.local
 ├── barcelona.empresa.local
 └── madrid.empresa.local
@@ -92,37 +156,37 @@ empresa.local
 institut.cat
 ├── premia.institut.cat
 └── viladecans.institut.cat
-
 ```
-
 Dos arbres → **un bosc** si comparteixen:  
-✔ Esquema  
-✔ Global Catalog  
-✔ Confiances internes
+✔ **Esquema**  
+✔ **Global Catalog**  
+✔ **Confiances internes**: Tots els dominis del bosc confien automàticament entre ells. Es reconeixen mútuament com a legítims i poden autenticar usuaris els uns dels altres sense intervenció de l'administrador   
 
 ---
 
 <!-- Slide 7 -->
-# 🔸 Global Catalog (GC)
+
+# 🔸6.0 Global Catalog (GC)
 
 Servei especialitzat que manté:
 
-- una còpia **completa** del domini local  
-- una còpia **parcial** dels altres dominis  
-- índexs per a cerques ràpides  
-- validació de grups universals  
-- suport a autenticacions interdominis
+- Una còpia **completa** del domini local  
+- Una còpia **parcial** dels altres dominis  
+- Índexs per a cerques ràpides  
+- Validació de grups universals: conté informació parcial de tots els dominis del bosc i pot construir el token d'autenticació complet 
+- Suport a autenticacions interdominis: conté informació d'identitat i grups de tots els dominis del forest
 
 És **l'índex global del bosc**
 
 ---
 
 <!-- Slide 8 -->
-# 🔸 Autenticació Kerberos
+
+# 🔸7.0 Autenticació Kerberos
 
 Quan un usuari inicia sessió:
 
-1. Envia credencials al KDC  
+1. Envia credencials al **KDC** (Key Distribution Center)  
 2. Rep el **Ticket-Granting Ticket (TGT)**  
 3. Demana tickets per accedir a serveis
 
@@ -138,12 +202,58 @@ Server: krbtgt/empresa.local
 Start Time: 10:05
 End Time:   20:05
 ```
-
 ---
 
 <!-- Slide 9 -->
 
-# 🔸 Replicació AD
+# 🔸7.0 Autenticació Kerberos
+
+   1. L’usuari introdueix la contrasenya al seu equip
+      La contrasenya no surt mai del client.
+   2. El client genera un hash de la contrasenya
+      Aquest hash és la clau secreta compartida entre l’usuari i el KDC.
+   3. El client envia una petició al KDC
+      Conté:
+      - nom d’usuari
+      - petició xifrada amb el hash de la contrasenya
+   4. El KDC valida la petició
+      Utilitza el hash emmagatzemat a AD
+      Si pot desxifrar-la, l'usuari és autèntic
+
+---
+
+<!-- Slide 10 -->
+
+# 🔸7.1 Kerberos vs RSA (Simètric vs Asimètric)
+
+## Kerberos: criptografia simètrica
+- No utilitza claus pública/privada.
+- Xifra i desxifra amb **la mateixa clau**: el hash de la contrasenya.
+- El KDC utilitza el mateix hash per validar la petició.
+- El ticket (TGT) s’emet i es gestionat amb claus internes del KDC.
+- No requereix certificats ni parell de claus.
+
+---
+
+<!-- Slide 11 -->
+
+# 🔸7.1 Kerberos vs RSA (Simètric vs Asimètric)
+
+## RSA: criptografia asimètrica
+- Utilitza **dues claus diferents**: pública i privada  
+- La clau pública xifra; la privada desxifra  
+- Necessita certificats i infraestructura de clau pública (PKI)  
+- Es fa servir en HTTPS, SSH, signatures digitals i PGP  
+
+## Diferència essencial
+- **Kerberos autentica** mitjançant claus simètriques i un servidor central (KDC)  
+- **RSA xifra/signa** mitjançant un parell de claus diferent per a cada part  
+
+---
+
+<!-- Slide 12 -->
+
+# 🔸8.0 Replicació AD
 
 ### **Intra-site**
 
@@ -159,9 +269,9 @@ End Time:   20:05
 
 ---
 
-<!-- Slide 10 -->
+<!-- Slide 13 -->
 
-# 🔸 Eines de diagnosi en AD
+# 🔸9.0 Eines de diagnosi en AD
 
 * `dcdiag`                → estat del DC
 * `repadmin /replsummary` → replicació
@@ -171,24 +281,46 @@ End Time:   20:05
 
 ---
 
-<!-- Slide 11 -->
+<!-- Slide 14 -->
 
-# 🔸 Introducció a LDAP
+# 🔸10.0 Introducció a LDAP
 
 LDAP = **Lightweight Directory Access Protocol**
 
-Servei de directori en entorns Linux:
+### LDAP s’utilitza tant en Windows com en Linux
 
-* s’executa en el servei **slapd**
-* organitza informació en un **DIT**
-* usa fitxers LDIF
-* permet consultes i autenticació
+### En Windows (Active Directory)
+- AD utiliza LDAP com a protocol de consulta del directori
+- El DC exposa LDAP per defecte en el port 389 (i 636 amb TLS)
+- Permet consultar usuaris, grups, OUs i atributs d’AD
+- Suporta extensions pròpies de Microsoft (esquema AD)
 
 ---
 
-<!-- Slide 12 -->
+<!-- Slide 15 -->
 
-# 🔸 DN, RDN i DIT
+# 🔸10.0 Introducció a LDAP
+
+### En Linux (OpenLDAP)
+- S'executa en el servei **slapd**
+- Organitza la informació en un **DIT**
+- Utilitza fitxers **LDIF** i esquema flexible
+
+---
+
+<!-- Slide 16 -->
+
+# 🔸10.0 Introducció a LDAP
+
+### Slapd
+És el procés que fa de servidor LDAP
+Rep peticions, guarda objectes i aplica consultes
+
+---
+
+<!-- Slide 17 -->
+
+# 🔸11.0 DN, RDN i DIT
 
 ### **DN (Distinguished Name)**
 
@@ -198,34 +330,46 @@ Identificador complet:
 uid=mpuig,ou=Professorat,dc=ins,dc=cat
 ```
 
-### **RDN**
+### **RDN (Relative Distinguished Name)**
 
 ```
 uid=mpuig
 ```
 
-### **DIT**
+---
 
-Arbre jeràrquic d’objectes.
+<!-- Slide 17 -->
+
+# 🔸11.0 DN, RDN i DIT
+
+### **DIT (Directory Information Tree)**
+
+Tree jeràrquic d'aquests d’objectes
+```
+dc=ins,dc=cat
+└── ou=Professorat
+├── uid=mpuig
+└── uid=jroca
+```
 
 ---
 
-<!-- Slide 13 -->
+<!-- Slide 18 -->
 
-# 🔸 AD vs LDAP
+# 🔸12.0 AD vs LDAP
 
 | Aspecte      | AD                    | LDAP                    |
 | ------------ | --------------------- | ----------------------- |
-| Arquitectura | Domini / Arbre / Bosc | DIT                     |
-| Autenticació | Kerberos + NTLM       | Simple bind / SASL      |
+| Arquitectura | Domain / Tree / Forest | DIT                     |
+| Autenticació | Kerberos + NTLM       | Simple bind (OpenLDAP) / SASL (Kerberos)      |
 | Replicació   | Multimàster + FSMO    | syncrepl / MMR / mirror |
 | Gestió       | GUI + RSAT            | CLI + phpldapadmin      |
 
 ---
 
-<!-- Slide 14 -->
+<!-- Slide 19 -->
 
-# 🔸 Replicació LDAP
+# 🔸13.0 Replicació LDAP
 
 ### **Syncrepl**
 
@@ -242,9 +386,9 @@ Arbre jeràrquic d’objectes.
 
 ---
 
-<!-- Slide 15 -->
+<!-- Slide 20 -->
 
-# 🔸 Exemple syncrepl
+# 🔸14.0 Exemple syncrepl
 
 ```bash
 syncrepl rid=001
@@ -266,7 +410,7 @@ syncrepl rid=001
 
 ### SASL (GSSAPI)
 
-* usa Kerberos
+* utilitza Kerberos
 * més segur
 * no cal enviar contrasenya
 
