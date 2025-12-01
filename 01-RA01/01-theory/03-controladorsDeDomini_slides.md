@@ -3,7 +3,7 @@ marp: true
 paginate: true
 theme: default
 
-header: "RA01 – Servei de Directori · Capítol 3 – Controladors de Domain i Arquitectures AD/LDAP"
+header: "RA01 – Servei de Directori · Capítol 3 – Controladors de Domini i Arquitectures AD/LDAP"
 footer: "Mòdul 0374 – Administració de Sistemes Operatius"
 
 style: |
@@ -23,7 +23,7 @@ style: |
 
 <!-- Slide 1 -->
 # RA01: Capítol 3
-## Controladors de Domain i Arquitectures AD/LDAP
+## Controladors de Domini i Arquitectures AD/LDAP
 
 **ASIX**       - Administració de Sistemes i Xarxes 
 **Mòdul 0374** - Administració de Sistemes Operatius
@@ -34,8 +34,8 @@ style: |
 <!-- Slide 2 -->
 # 🔸2.0. Objectius del capítol
 
-- Entendre què és un **Controlador de Domain (DC)**  
-- Comprendre l’arquitectura d’**Active Directory**  
+- Entendre què és un **Controlador de Domini (DC)**  
+- Comprendre l’arquitectura d'**Active Directory**  
 - Distingir domini, arbre i bosc  
 - Explicar el concepte de **Global Catalog**  
 - Entendre la **replicació AD**  
@@ -45,7 +45,7 @@ style: |
 ---
 
 <!-- Slide 3 -->
-# 🔸3.0. Què és un Controlador de Domain?
+# 🔸3.0. Què és un Controlador de Domini?
 
 Un **DC (Domain Controller)** és el servidor que:
 
