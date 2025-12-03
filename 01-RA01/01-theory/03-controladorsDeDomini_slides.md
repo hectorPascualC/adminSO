@@ -186,9 +186,9 @@ Servei especialitzat que manté:
 
 Quan un usuari inicia sessió:
 
-1. Envia credencials al **KDC** (Key Distribution Center)  
-2. Rep el **Ticket-Granting Ticket (TGT)**  
-3. Demana tickets per accedir a serveis
+1. S'envia credencials al **KDC** (Key Distribution Center)  
+2. Es genera el **Ticket-Granting Ticket (TGT)**  
+3. S'entrega tickets per accedir a serveis
 
 Comprovació:
 
