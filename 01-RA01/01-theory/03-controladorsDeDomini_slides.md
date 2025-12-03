@@ -228,10 +228,10 @@ End Time:   20:05
 
 ## Kerberos: criptografia simètrica
 - No utilitza claus pública/privada.
-- Xifra i desxifra amb **la mateixa clau**: el hash de la contrasenya.
-- El KDC utilitza el mateix hash per validar la petició.
-- El ticket (TGT) s’emet i es gestionat amb claus internes del KDC.
-- No requereix certificats ni parell de claus.
+- Xifra i desxifra amb **la mateixa clau**: el hash de la contrasenya
+- El KDC utilitza el mateix hash per validar la petició
+- El ticket (TGT) s'emet i es gestionat amb claus internes del KDC
+- No requereix certificats ni parell de claus
 
 ---
 
@@ -401,24 +401,44 @@ syncrepl rid=001
 
 <!-- Slide 16 -->
 
-# 🔸 Autenticació LDAP
+# 🔸15.0 Autenticació LDAP
 
 ### Simple bind
 
-* DN + contrasenya
-* necessita TLS
+* Autenticació bàsica, directa
+* Envia DN + contrasenya > Envia contrasenya en text pla
+* Necessita TLS/SSL (túnel xifrat)
 
-### SASL (GSSAPI)
-
-* utilitza Kerberos
-* més segur
-* no cal enviar contrasenya
+```
+DN = uid=jordi,ou=IT,dc=empresa,dc=local
+Password = ********
+```
 
 ---
 
 <!-- Slide 17 -->
 
-# 🔸 Eines LDAP
+# 🔸15.0 Autenticació LDAP
+
+### SASL (GSSAPI)
+
+* **SASL**: 
+    - Simple Authentication and Security Layer
+    - La **capa** d'autenticació (framework)
+* **GSSAPI**: 
+    - Generic Security Services Application Programming Interface
+    - Un **connector** dins d’aquesta capa
+* **Kerberos**
+    - Autentificació avançada
+    - El protocol real que fa el treball (SASL + GSSAPI)
+* Més segur
+* No cal enviar contrasenya
+
+---
+
+<!-- Slide 18 -->
+
+# 🔸16.0 Eines LDAP
 
 * `ldapsearch`             → consultes
 * `ldapadd` / `ldapmodify` → gestió
@@ -427,14 +447,14 @@ syncrepl rid=001
 
 ---
 
-<!-- Slide 18 -->
+<!-- Slide 19 -->
 
-# 🔸 Resum final
+# 🔸17.0 Resum final
 
 * Un DC és el servidor central del domini
 * AD s’organitza en dominis, arbres i boscos
 * El GC accelera cerques i autenticació
-* Kerberos és el nucli del logon
+* Kerberos és el nucli del logon (Sistema login de Windows, Kerberos, AD)
 * LDAP proporciona un directori flexible
 * AD i LDAP comparteixen conceptes però tenen rols diferents
 
