@@ -7,7 +7,7 @@
 * ✅  This year's worst subject  
 * ✅  When does the academic year's teaching period end?  
 * ✅  Who is the class representative? --> Delegado: Marco Antonio, Subdelegado: Daniel Gil
-* ⬜  Slack  
+* ✅  Slack  
 * ✅  RAs overview  
 * ⬜  Gant graph  
 * ✅  Exam guidelines  
