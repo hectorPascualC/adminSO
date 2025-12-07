@@ -86,7 +86,7 @@ Inclou captures de pantalla de totes les validacions.
 Crea i aplica una GPO al domini o a una OU concreta
 L’objectiu de la GPO serà:
 
-**Modificar una configuració de l’equip o de l’usuari** (per exemple, restringir opcions del menú d’inici, impedir accés a eines, modificar configuracions d’entorn, etc.).
+Que **elimini les opcions d’Apagar, Reiniciar, Suspendre i Hibernar del menú Inicio** en tots els equips del domini (o només en els que tu decideixis).
 
 A fer:
 
