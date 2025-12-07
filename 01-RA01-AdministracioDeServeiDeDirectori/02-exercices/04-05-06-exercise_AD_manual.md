@@ -15,6 +15,13 @@
 * **1 MV Windows 10/11 client**
 * VB connectat a xarxa interna
 
+Al client es recomana instal.lar:
+* Windows 10/11 Pro
+* Windows 10/11 Enterprise
+* Windows 10/11 Education
+
+Si no tens d'aquestes i tens la versió W11 Home, segueix aquesta guia per un cop instal.lat fer l'[upgrade a Pro](./040506-exercise_AD_manual_upgradeW11HomeToW11Pro.md)
+
 
 ## 🔸**1. Instal·lació del AD**
 
@@ -97,28 +104,264 @@
 
 ## 🔸**3. Unir un Client Windows al Domini**
 
-1. Inicia Windows 10 o 11
-2. Assigna IP dins de la mateixa xarxa i DNS → IP del servidor AD
-3. A Configuración → Sistema → Información → **Unirse a un dominio**
-4. Domini: `iestorreroja.local`
-5. Inicia sessió amb “alopez” per comprovar
+1. Inicia Windows 10 o 11 **edició Pro** (imprescindible per unir-se a un domini)
 
-**Resultat esperat:** Els equips apareixen a **OU=Equipos**.
+2. Assigna una IP fixa dins de la mateixa xarxa que el servidor AD i configura el DNS amb la IP del controlador de domini (WS):
 
+   Exemple recomanat:
+
+   ```
+   IP: 192.168.10.20
+   Máscara: 255.255.255.0
+   Gateway: (en blanc)
+   DNS: 192.168.10.10
+   ```
+
+3. Comprova que tens connectivitat client → servidor amb:
+
+   ```
+   ping 192.168.10.10
+   ```
+
+   Si no funciona, revisa la configuració de xarxa amb l’annex tècnic:
+   ➜ [Guia de configuració de xarxa per la pràctica](./040506-exercise_AD_manual_activeDirectoryInternalNetworkGuide.md)
+
+4. Comprova la resolució DNS del domini:
+
+   ```
+   nslookup iestorreroja.local
+   ```
+
+   > ⚠️ Si mostra “Servidor: Unknown”, **no és cap error**: indica que no s’ha creat la zona inversa (no és necessària per la pràctica)
+
+5. Uneix el client al domini:
+
+   * **Configuración → Sistema → Información → Configuración avanzada del sistema**
+   * Pestanya **Nombre de equipo**
+   * Botó **Cambiar…**
+   * Selecciona **Dominio** i escriu:
+
+     ```
+     iestorreroja.local
+     ```
+
+6. Introdueix credencials amb permisos al domini:
+
+   ```
+   Usuario: Administrador
+   Contraseña: (la del servidor WS)
+   ```
+
+7. Reinicia quan ho demani.
+
+8. A la pantalla d’inici de sessió, selecciona *Inicio de sesión en iestorreroja* i entra amb:
+
+   ```
+   iestorreroja\alopez
+   ```
+
+**Resultat esperat:**
+L’usuari inicia sessió al domini i el client queda registrat a l’Active Directory.
+
+**Verificació de l'unió del client al domini**
+Executar:
+   ```
+      whoami
+   ```
+
+Esperat:
+   ```
+   iestorreroja\alopez
+   ```
 
 ## 🔸**4. Aplicar una Política de Grup (GPO)**
 
-Crea una GPO que:
+Crear una GPO que **elimini les opcions d’Apagar, Reiniciar, Suspendre i Hibernar del menú Inicio** en tots els equips del domini (o només en els que tu decideixis).
 
-* **Treure les opcions d'apagar, reiniciar, suspendre i hibernar del menú Inicio**.
+### **4.1 Accedir al Gestor de Polítiques de Grup (GPMC)**
 
-Procediment:
+1. A Windows Server, obre:
 
-1. GPMC → Domini → Crear GPO “Restricció Energia”
-2. Editar →
+   ```
+   Administrador del servidor → Herramientas → Administración de directivas de grupo
+   ```
+2. A l'arbre esquerre, desplega:
 
-   * Equipo → Plantillas administrativas → Menú Inicio
-   * Habilitar “Quitar y evitar el acceso a los comandos Apagar, Reiniciar, Suspender e Hibernar”.
+   ```
+   Bosque → iestorreroja.local → Dominios → iestorreroja.local
+   ```
+
+---
+
+### **4.2 Crear i vincular la nova GPO**
+
+1. Clic dret sobre **iestorreroja.local**
+2. Selecciona:
+
+   ```
+   Crear un GPO en este dominio y vincularlo aquí…
+   ```
+3. Nom de la GPO:
+
+   ```
+   RestriccioEnergia
+   ```
+4. Fes clic a **Aceptar**.
+
+Això crea la GPO i la vincula de forma automàtica al domini.
+
+---
+
+### **4.3 Editar la GPO**
+
+1. Obre la consola de gestió de GPO:
+
+   * **Administrador del servidor**
+     → **Herramientas**
+     → **Administración de directivas de grupo** (GPMC)
+   * (Alternativa: **Win + R** → `gpmc.msc`)
+
+2. Navega fins al domini:
+
+   * **Bosque: iestorreroja.local**
+     → **Dominios**
+     → **iestorreroja.local**
+
+3. A la llista de GPOs vinculades, fes clic dret sobre **RestriccioEnergia**
+   ```
+   Administración de directivas de grupo  
+       → Bosque: iestorreroja.local
+           → Dominios
+               → iestorreroja.local
+                   → RestriccioEnergia
+   ```
+
+4. Selecciona **Editar**
+
+5. Al panell de l’editor de polítiques:
+
+   * **Equipo**
+     → **Plantillas administrativas**
+     → **Menú Inicio y barra de tareas**
+
+6. Localitza i habilita la política:
+
+   * **Quitar y evitar el acceso a los comandos Apagar, Reiniciar, Suspender e Hibernar**
+
+7. Aplica la política al terminal
+
+   Servidor (WS):
+   ```
+   gpupdate /force
+   ```
+
+   Client (WC):
+   ```
+   gpupdate /force
+   ```
+
+   Pot ser necessari reiniciar el client per veure l’efecte.
+
+8. Comrpovació visual esperada
+* Entra al Windows 11 amb un usuari del domini (ex: alopez)
+* Després mira el menú d’inici i botó d’alimentació:
+   * NO apareixen les opcions: Apagar, Reiniciar, Suspender, Hibernar
+   * Només hauria d’aparèixer:
+      → Cerrar sesión
+      → O cap opció d'alimentació
+Això confirma que la GPO ha fet efecte
+
+---
+
+### **4.4 Comprovació final: verificar la GPO des del client Windows 11**
+
+A la màquina client:
+
+1. Inicia sessió com a **alopez** o qualsevol usuari del domini.
+2. Executa:
+
+   ```
+   cmd
+   gpupdate /force
+   ```
+
+3. Comprova que les opcions d'apagat **ja no apareixen** al menú Inicio
+
+---
+
+### **4.5 Comprovació final: pertinença al domini**
+
+Des del client:
+
+   ```
+   whoami
+   ```
+
+Sortida esperada:
+
+   ```
+   iestorreroja\alopez
+   ```
+
+Des del servidor:
+
+Obre:
+
+   ```
+   Usuarios y equipos de Active Directory → Equipos
+   ```
+
+L'equip **ha d'aparèixer** en aquesta OU.
+
+---
+
+### **4.6 Assignar la GPO només als equips (opcional, manual)**
+
+Els equips del domini inicialment apareixen a la OU:
+
+```
+iesteroreroja.local → Computers
+```
+
+Aquest és el comportament per defecte d'AD
+
+### 🔹 **Perquè la GPO afecti només als equips (i no als usuaris)?**
+
+És recomanable moure els equips a l'OU **Equipos**, creada per aquesta pràctica
+
+### **Com fer-ho?**
+
+1. Obre:
+
+   ```
+   Herramientas → Usuarios y equipos de Active Directory
+   ```
+2. Ves a:
+
+   ```
+   iestorreroja.local → Computers
+   ```
+3. Localitza l'equip del client (`04-05-06-AD-WC`).
+4. Botó dret → **Mover…**
+5. Tria:
+
+   ```
+   iestorreroja.local → Equipos
+   ```
+
+Ara la GPO serà aplicada només als equips.
+
+---
+
+### **4.7 Assignar la GPO només als equips (opcional, automàtic)**
+
+Per evitar haver-los de moure manualment:
+
+### Des del servidor, PowerShell com a administrador:
+
+```
+redircmp "OU=Equipos,DC=iestorreroja,DC=local"
+```
 
 
 # **Entrega**
