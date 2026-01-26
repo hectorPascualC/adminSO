@@ -1,6 +1,6 @@
 0374. Administració de sistemes operatius
 Durada: 165 hores 
-Hores a realitzar en el centre educatiu: 132 hores 
+Hores a realitzar en el centre educatiu: 99 hores 
 Hores d’estada a l’empresa: 66 hores 
 Equivalència en crèdits ECTS: 8
 
