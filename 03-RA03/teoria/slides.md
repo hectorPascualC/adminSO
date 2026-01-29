@@ -15,6 +15,11 @@ style: |
         z-index: 10;
     }
     header { text-align: right !important; padding-right: 0 !important; }
+    section {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+    }
 
 ---
 
@@ -65,20 +70,47 @@ Una **tasca repetitiva** és una acció del sistema que:
 
 - Es fa **sempre de la mateixa manera**
 - Es repeteix **cada cert temps**
-- No requereix decisió humana cada vegada
+- No requereix decisió humana cada vegada  
+
+---
+
+# 3.1.1 - Què és una tasca repetitiva
 
 Exemples típics:
-- Còpies de seguretat
-- Neteja de fitxers temporals
-- Generació de llistats o informes
+
+- Còpies de seguretat:  
+    - Mateixa carpeta d'origen   
+    - Mateixa carpeta de destí   
+    - Mateixa hora   
+    - Mateixa acció  
+
+---  
+
+# 3.1.1 - Què és una tasca repetitiva
+
+- Neteja de fitxers temporals: 
+    - Mateixa carpeta (temp, tmp, etc.)
+    - Mateixa acció (esborrar)
+    - Mateix interval de temps (setmanal)  
+
+---
+
+# 3.1.1 - Què és una tasca repetitiva
+
+- Generació de llistats o informes  
+    - Mateixa comanda o programa  
+    - Mateix format de sortida  
+    - Mateix dia i hora   
 
 ---
 
 # 3.1.2 - Per què automatitzar tasques
 
 Automatitzar vol dir:
+
 > Deixar programat que el sistema faci una tasca  
 > **sense intervenció manual** de l’administrador
+
 
 L’administrador:
 - Defineix **què** s’ha de fer
@@ -107,7 +139,7 @@ En administració de sistemes:
 
 - Les tasques manuals no escalen bé
 - Les tasques repetitives han d’estar automatitzades
-- L’administrador passa de “fer” a **supervisar**
+- L’administrador passa de **fer** a **supervisar**
 
 Això és la base del treball professional en sistemes.
 
@@ -119,10 +151,10 @@ Això és la base del treball professional en sistemes.
 [Repetició] -> [Temps] -> [Errors] -> [Inconsistència]
 
 **Automatitzat:**
-[Planificació] -> [Execució regular] -> [Log] -> [Control / Auditoria]
+[Planificació] -> [Execució regular] -> **[Log]** -> [Control / Auditoria]
 
 **Idea clau**:
-Automatitzar = fer que el sistema executi una tasca *igual cada cop*
+Automatitzar = fer que el sistema executi una tasca **igual cada cop**
 i deixi evidència (logs) perquè es pugui verificar
 
 ---
@@ -139,8 +171,7 @@ Planificar una tasca vol dir:
 - Indicar **quan** s’ha d’executar
 - Fer-ho **sense intervenció manual** cada vegada
 
-L’administrador defineix la planificació  
-el sistema executa la tasca.
+L’administrador defineix la planificació el sistema executa la tasca.
 
 ---
 
@@ -191,9 +222,9 @@ Una tasca repetitiva:
 - Forma part del manteniment habitual
 
 Exemples:
-- Còpies de seguretat diàries
+- Còpies de seguretat diàries: incremental diària
 - Neteja setmanal de fitxers
-- Generació periòdica d’informes
+- Generació periòdica d'informes
 
 ---
 
@@ -232,32 +263,33 @@ Tasca planificada = 4 peces:
 * (1) QUAN  -> Trigger (hora / calendari / esdeveniment)
 * (2) QUÈ   -> Action  (comanda / programa / script)
 * (3) QUI   -> Context (usuari amb permisos)
-* (4) ON    -> Output  (logs / fitxers resultants)
+* (4) ON    -> A on -> Genera output  (logs / fitxers resultants)
 
 ---
 
 # 3.2.8 - Exemple / Esquema - Model mental d’una tasca planificada 
 
-Mini-exemples (conceptuals, 1 línia):
+Esborrar cada dia a les 3:00 fitxers de la carpeta temporal de més de 7 dies:
 
 Linux (cron):
 ```
-* * * * * /usr/bin/echo "ok" >> /var/log/tasca.log
+0 3 * * * /usr/bin/find /tmp/fitxers_temporals -type f -mtime +7 -delete
 ```
 
 Windows (schtasks):
 ```
-schtasks /Create /SC DAILY /TN "TascaOK" /TR "cmd /c echo ok >> C:\tasca.log" /ST 09:00
+schtasks /Create /SC DAILY /ST 03:00 /TN "NetejaTemp" /TR "powershell.exe -Command \"Get-ChildItem 
+C:\Temp -File | Where-Object {$_.LastWriteTime -lt (Get-Date).AddDays(-7)} | Remove-Item\""
 ```
 ---
 
 # 3.2.9 - Exemple / Esquema - Puntual vs Repetitiva
 
-PUNTUAL (1 cop)
+**PUNTUAL (1 cop)**
 - Objectiu: executar una acció una vegada
 - Exemple: còpia de seguretat avui a les 22:00
 
-REPETITIVA (cada X temps)
+**REPETITIVA (cada X temps)**
 - Objectiu: manteniment continu
 - Exemple: neteja logs cada dia a les 02:00
 
@@ -280,8 +312,7 @@ Les tasques automatitzades:
 - Poden afectar fitxers, usuaris o serveis
 - S’executen de manera recurrent
 
-Un error de seguretat es pot repetir  
-automàticament moltes vegades.
+Un error de seguretat es pot repetir automàticament moltes vegades!!!
 
 ---
 
@@ -305,8 +336,7 @@ Quan planifiquem una tasca cal decidir:
 - Quins **permisos** té aquest usuari
 - A quins recursos pot accedir
 
-No totes les tasques han de córrer  
-com a administrador.
+No totes les tasques han de córrer com a administrador
 
 ---
 
@@ -338,21 +368,10 @@ Automatitzar vol dir:
 
 # 3.3.6 - Exemple / Esquema - Mínim privilegi
 
-**Regla:**
-La tasca ha de tenir "els permisos mínims" per fer només el que toca.
-
-**Esquema de risc:**
-[Acció] + [Usuari] + [Permisos]  ->  [Impacte si falla]
-
-
----
-
-# 3.3.6 - Exemple / Esquema - Mínim privilegi
-
 **Exemple dolent:**
 Usuari: admin/root
 Permisos: tot
-Impacte: qualsevol error = dany gran
+Impacte: qualsevol error > dany gran
 
 **Exemple bo:**
 Usuari: usuari_tasca
@@ -374,8 +393,7 @@ Automatitzar comptes **no** vol dir:
 - Substituir l’administrador
 
 Vol dir:
-> Automatitzar tasques simples i repetitives  
-> relacionades amb comptes d’usuari.
+> Automatitzar tasques simples i repetitives relacionades amb comptes d’usuari
 
 ---
 
@@ -404,7 +422,7 @@ Automatització (RA03):
 - Execució programada
 - Suport a l’administració
 
-Gestió avançada (RA07):
+Gestió avançada (RA07): administrar molts elements, amb regles, polítiques i control
 - Alta i baixa massiva d’usuaris
 - Polítiques complexes
 - Control detallat de permisos
@@ -423,7 +441,7 @@ Automatitzar també implica responsabilitat.
 
 ---
 
-# 3.4.5 - Exemple / Esquema - Automatització de comptes (sense RA07)
+# 3.4.5 - Exemple / Esquema - Automatització de comptes 
 
 **Objectiu:**
 Automatitzar tasques simples i repetitives sobre comptes,
