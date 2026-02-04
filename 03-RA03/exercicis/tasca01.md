@@ -17,10 +17,10 @@ A través d’aquesta pràctica s’ha de comprendre:
 
 * què és una tasca repetitiva,
 * per què és convenient automatitzar-la,
-* quins avantatges aporta l’automatització,
+* quins avantatges aporta l'automatització,
 * i quins riscos pot tenir una mala automatització.
 
-**En aquesta pràctica no s’implementaran tasques automàtiques**, només se’n farà l’anàlisi i justificació.
+**En aquesta pràctica no s'implementaran tasques automàtiques**, només se’n farà l’anàlisi i justificació.
 
 ### Context de treball
 

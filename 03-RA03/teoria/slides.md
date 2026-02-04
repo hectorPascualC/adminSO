@@ -41,7 +41,7 @@ ASIX02
 
 # 3.0.2 - Objectius de la RA03
 
-- Comprendre el concepte d’automatització
+- Comprendre el concepte d'automatització
 - Planificar tasques amb comandes del sistema
 - Aplicar criteris bàsics de seguretat
 - Utilitzar eines gràfiques de planificació
@@ -51,7 +51,7 @@ ASIX02
 
 # 3.0.3 - Estructura del contingut
 
-- 3.1 - Avantatges de l’automatització
+- 3.1 - Avantatges de l'automatització
 - 3.2 - Planificació de tasques
 - 3.3 - Seguretat
 - 3.4 - Administració de comptes
@@ -60,7 +60,7 @@ ASIX02
 
 ---
 
-# 3.1 - Avantatges de l’automatització de tasques
+# 3.1 - Avantatges de l'automatització de tasques
 
 ---
 
@@ -109,19 +109,19 @@ Exemples típics:
 Automatitzar vol dir:
 
 > Deixar programat que el sistema faci una tasca  
-> **sense intervenció manual** de l’administrador
+> **sense intervenció manual** de l'administrador
 
 
-L’administrador:
-- Defineix **què** s’ha de fer
-- Defineix **quan** s’ha de fer
-- El sistema s’encarrega de l’execució
+L'administrador:
+- Defineix **què** s'ha de fer
+- Defineix **quan** s'ha de fer
+- El sistema s'encarrega de l'execució
 
 ---
 
-# 3.1.3 - Avantatges principals de l’automatització
+# 3.1.3 - Avantatges principals de l'automatització
 
-L’automatització permet:
+L'automatització permet:
 
 1. **Estalviar temps**
 2. **Reduir errors humans**
@@ -138,8 +138,8 @@ en sistemes amb molts usuaris o servidors.
 En administració de sistemes:
 
 - Les tasques manuals no escalen bé
-- Les tasques repetitives han d’estar automatitzades
-- L’administrador passa de **fer** a **supervisar**
+- Les tasques repetitives han d'estar automatitzades
+- L'administrador passa de **fer** a **supervisar**
 
 Això és la base del treball professional en sistemes.
 
@@ -167,49 +167,49 @@ i deixi evidència (logs) perquè es pugui verificar
 
 Planificar una tasca vol dir:
 
-- Indicar al sistema **quina acció** ha d’executar
-- Indicar **quan** s’ha d’executar
+- Indicar al sistema **quina acció** ha d'executar
+- Indicar **quan** s'ha d'executar
 - Fer-ho **sense intervenció manual** cada vegada
 
-L’administrador defineix la planificació el sistema executa la tasca.
+L'administrador defineix la planificació el sistema executa la tasca.
 
 ---
 
 # 3.2.2 - Planificació i execució manual
 
 Execució manual:
-- L’administrador llança la comanda
+- L'administrador llança la comanda
 - Només passa una vegada
 
 Planificació:
 - La comanda queda registrada
-- El sistema l’executa automàticament
+- El sistema l'executa automàticament
 - Pot repetir-se o ser puntual
 
 ---
 
 # 3.2.3 - Tipus de tasques segons el temps
 
-Segons **quan** s’executen, distingim:
+Segons **quan** s'executen, distingim:
 
 1. Tasques puntuals  
 2. Tasques repetitives
 
-Aquesta distinció és clau en l’administració del sistema.
+Aquesta distinció és clau en l'administració del sistema.
 
 ---
 # 3.2.4 - Tasques puntuals
 
 Una tasca puntual:
 
-- S’executa **una sola vegada**
+- S'executa **una sola vegada**
 - En un moment concret
 - No es torna a repetir
 
 Exemples:
 - Executar una neteja aquesta nit
 - Llançar una comanda un dia concret
-- Fer una acció fora d’horari laboral
+- Fer una acció fora d'horari laboral
 
 ---
 
@@ -217,7 +217,7 @@ Exemples:
 
 Una tasca repetitiva:
 
-- S’executa **de manera regular**
+- S'executa **de manera regular**
 - Segueix un patró de temps
 - Forma part del manteniment habitual
 
@@ -234,10 +234,10 @@ Quan planifiquem una tasca, el sistema guarda:
 
 - La comanda o acció a executar
 - El moment o la freqüència
-- L’usuari amb què s’executarà
-- Les condicions bàsiques d’execució
+- L'usuari amb què s'executarà
+- Les condicions bàsiques d'execució
 
-No s’executa ara:  
+No s'executa ara:  
 queda **programada**.
 
 ---
@@ -247,16 +247,16 @@ queda **programada**.
 Encara que les eines siguin diferents:
 
 - Linux i Windows
-- línia d’ordres o interfície gràfica
+- línia d'ordres o interfície gràfica
 
 El concepte és el mateix:
 > Programar una acció perquè el sistema la faci sol.
 
-La diferència és **l’eina**, no la idea.
+La diferència és **l'eina**, no la idea.
 
 ---
 
-# 3.2.8 - Exemple / Esquema - Model mental d’una tasca planificada
+# 3.2.8 - Exemple / Esquema - Model mental d'una tasca planificada
 
 Tasca planificada = 4 peces:
 
@@ -267,7 +267,7 @@ Tasca planificada = 4 peces:
 
 ---
 
-# 3.2.8 - Exemple / Esquema - Model mental d’una tasca planificada 
+# 3.2.8 - Exemple / Esquema - Model mental d'una tasca planificada 
 
 Esborrar cada dia a les 3:00 fitxers de la carpeta temporal de més de 7 dies:
 
@@ -308,9 +308,9 @@ Repetitiva:  |----X----X----X----X---->
 
 Les tasques automatitzades:
 
-- S’executen **sense supervisió directa**
+- S'executen **sense supervisió directa**
 - Poden afectar fitxers, usuaris o serveis
-- S’executen de manera recurrent
+- S'executen de manera recurrent
 
 Un error de seguretat es pot repetir automàticament moltes vegades!!!
 
@@ -328,11 +328,11 @@ Això redueix riscos i errors greus.
 
 ---
 
-# 3.3.3 - Usuari d’execució
+# 3.3.3 - Usuari d'execució
 
 Quan planifiquem una tasca cal decidir:
 
-- Amb **quin usuari** s’executa
+- Amb **quin usuari** s'executa
 - Quins **permisos** té aquest usuari
 - A quins recursos pot accedir
 
@@ -380,7 +380,7 @@ Impacte: error limitat i controlable
 
 ---
 
-# 3.4 - Automatització de l’administració de comptes
+# 3.4 - Automatització de l'administració de comptes
 
 ---
 
@@ -388,12 +388,12 @@ Impacte: error limitat i controlable
 
 Automatitzar comptes **no** vol dir:
 
-- Crear sistemes complexos d’usuaris
+- Crear sistemes complexos d'usuaris
 - Fer gestió avançada de permisos
-- Substituir l’administrador
+- Substituir l'administrador
 
 Vol dir:
-> Automatitzar tasques simples i repetitives relacionades amb comptes d’usuari
+> Automatitzar tasques simples i repetitives relacionades amb comptes d'usuari
 
 ---
 
@@ -401,7 +401,7 @@ Vol dir:
 
 **Exemples de tasques habituals:**
 
-- Generar llistats d’usuaris
+- Generar llistats d'usuaris
 - Comprovar comptes existents
 - Exportar informació de comptes
 - Fer revisions periòdiques
@@ -420,10 +420,10 @@ Vol dir:
 Automatització (RA03):
 - Accions simples
 - Execució programada
-- Suport a l’administració
+- Suport a l'administració
 
 Gestió avançada (RA07): administrar molts elements, amb regles, polítiques i control
-- Alta i baixa massiva d’usuaris
+- Alta i baixa massiva d'usuaris
 - Polítiques complexes
 - Control detallat de permisos
 
@@ -433,8 +433,8 @@ Gestió avançada (RA07): administrar molts elements, amb regles, polítiques i 
 
 **Encara que siguin tasques simples:**
 
-- Cal controlar amb quin usuari s’executen
-- Cal limitar l’accés a la informació
+- Cal controlar amb quin usuari s'executen
+- Cal limitar l'accés a la informació
 - Cal evitar exposar dades sensibles
 
 Automatitzar també implica responsabilitat.
@@ -451,7 +451,7 @@ sense entrar en gestió avançada (domini/polítiques complexes).
 [Entrada] -> [Acció sobre compte] -> [Verificació] -> [Log]
 
 **Exemple conceptual:**
-- Entrada: llista d’usuaris "nous"
+- Entrada: llista d'usuaris "nous"
 - Acció: crear compte local o activar/desactivar
 - Verificació: comprovar existència/estat
 - Log: deixar evidència (fitxer o visor)
@@ -469,10 +469,10 @@ sense entrar en gestió avançada (domini/polítiques complexes).
 - Facilitar la planificació de tasques
 - Evitar errors de sintaxi
 - Visualitzar millor la configuració
-- Fer l’administració més accessible
+- Fer l'administració més accessible
 
 Són especialment útils  
-en entorns educatius o d’iniciació.
+en entorns educatius o d'iniciació.
 
 ---
 
@@ -481,7 +481,7 @@ en entorns educatius o d’iniciació.
 **Les eines gràfiques:**
 
 - Fan el **mateix** que les comandes
-- Canvia la manera d’interactuar
+- Canvia la manera d'interactuar
 - No canvia el resultat final
 
 El sistema continua executant  
@@ -489,26 +489,26 @@ tasques automàtiques programades.
 
 ---
 
-# 3.5.3 - Tipus d’accions que permeten
+# 3.5.3 - Tipus d'accions que permeten
 
 **Amb eines gràfiques es pot:**
 
 - Crear tasques puntuals
 - Crear tasques repetitives
 - Definir horaris i freqüències
-- Assignar l’usuari d’execució
+- Assignar l'usuari d'execució
 
 Sempre sota els mateixos criteris  
 de seguretat vistos abans.
 
 ---
 
-# 3.5.4 - Configuració bàsica d’una tasca
+# 3.5.4 - Configuració bàsica d'una tasca
 
 **Una eina gràfica permet definir:**
 
 - Acció a executar
-- Moment d’execució
+- Moment d'execució
 - Usuari associat
 - Condicions bàsiques
 
@@ -536,7 +536,7 @@ forma part del perfil professional.
 **GUI és útil quan:**
 - cal visualitzar molts paràmetres
 - cal reduir errors de sintaxi
-- cal manteniment per part d’altres admins
+- cal manteniment per part d'altres admins
 
 ---
 
@@ -556,7 +556,7 @@ GUI:
 
 ---
 
-# 3.6.6 - Exemple / Esquema - Parts d’una tasca en una GUI
+# 3.6.6 - Exemple / Esquema - Parts d'una tasca en una GUI
 
 **Quan crees una tasca en una eina gràfica, sempre hi ha:**
 
@@ -564,7 +564,7 @@ GUI:
 - nom, descripció, usuari
 
 (2) Triggers
-- quan s’executa (dia/hora/esdeveniment)
+- quan s'executa (dia/hora/esdeveniment)
 
 (3) Actions
 - què executa (programa/comanda)
@@ -586,14 +586,13 @@ GUI:
 # 3.6.1 - Per què documentar tasques
 
 **Les tasques automàtiques:**
-
 - No es veuen executar cada dia
 - Poden fallar sense avís immediat
 - Poden ser modificades per altres persones
 
 **Sense documentació:**
 - Es perd el control del sistema
-- Augmenta el risc d’errors
+- Augmenta el risc d'errors
 
 ---
 
@@ -603,11 +602,10 @@ GUI:
 
 - Deixar constància que existeix
 - Explicar **què fa**
-- Indicar **quan s’executa**
+- Indicar **quan s'executa**
 - Indicar **amb quin usuari**
 
-No cal documentació extensa,  
-però sí **clara i útil**.
+No cal documentació extensa, però sí **clara i útil**  
 
 ---
 
@@ -617,7 +615,7 @@ però sí **clara i útil**.
 - Nom o identificador de la tasca
 - Acció o comanda que executa
 - Planificació (moment o freqüència)
-- Usuari d’execució
+- Usuari d'execució
 - Finalitat de la tasca
 
 Aquesta informació permet  
@@ -644,7 +642,7 @@ Una tasca documentada
 
 Nom de la tasca:
 Objectiu:
-Quan s’executa (trigger):
+Quan s'executa (trigger):
 Què executa (action):
 Amb quin usuari (context):
 On deixa evidència (log/output):
