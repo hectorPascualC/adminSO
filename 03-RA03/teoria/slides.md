@@ -128,8 +128,7 @@ L'automatització permet:
 3. **Garantir regularitat**
 4. **Millorar el manteniment del sistema**
 
-Aquestes millores són especialment importants  
-en sistemes amb molts usuaris o servidors.
+Aquestes millores són especialment importants en sistemes amb molts usuaris o servidors  
 
 ---
 
