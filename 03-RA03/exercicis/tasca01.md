@@ -29,8 +29,6 @@ La pràctica s’ha de realitzar sobre **un sistema operatiu real o virtual**, a
 * Linux (Ubuntu Desktop o Ubuntu Server)
 * Windows o Windows Server
 
-No és obligatori utilitzar VirtualBox, però es pot fer servir si es prefereix treballar en un entorn de proves
-
 ---
 
 ## Tasques a realitzar
@@ -39,9 +37,9 @@ No és obligatori utilitzar VirtualBox, però es pot fer servir si es prefereix 
 
 Descriu breument el sistema operatiu utilitzat indicant:
 
-* tipus de sistema (Linux o Windows),
-* ús previst del sistema: usuari, servidor, entorn VB...
-* tasques habituals que s’hi duen a termeS
+* Tipus de sistema (Linux o Windows)
+* Ús previst del sistema: usuari, servidor, entorn virtualitzat...
+* Tasques habituals que s’hi duen a terme
 
 ---
 
@@ -49,9 +47,9 @@ Descriu breument el sistema operatiu utilitzat indicant:
 
 Identifica **com a mínim 3 tasques repetitives reals** del sistema analitzat
 
-Per ajudar-te a detectar aquest tipus de tasques, fixa't en **accions de manteniment i control** que es realitzen de manera periòdica i sempre segueixen el mateix procediment.
+Fixa't en **accions de manteniment i control** que es realitzen de manera periòdica i sempre segueixen el mateix procediment  
 
-A continuació es mostren **exemples orientatius** de tasques que habitualment són repetitives:
+**Exemples orientatius** de tasques que habitualment són repetitives:
 
 * còpies de seguretat de fitxers o carpetes importants
 * neteja de fitxers temporals o antics
@@ -60,7 +58,7 @@ A continuació es mostren **exemples orientatius** de tasques que habitualment s
 * generació d’informes periòdics
 * actualitzacions del sistema o de components concrets
 
-L'important no és l’exemple escollit, sinó **justificar per què la tasca és repetitiva**
+L'important no és l’exemple sinó **justificar per què la tasca és repetitiva**
 
 ---
 
@@ -68,10 +66,10 @@ L'important no és l’exemple escollit, sinó **justificar per què la tasca é
 
 Per a cada tasca identificada, indica si es tracta d’una:
 
-* tasca **repetitiva**, o
-* tasca **puntual**.
+* Tasca **repetitiva**
+* Tasca **puntual**
 
-Justifica breument la classificació realitzada.
+Justifica breument 
 
 ---
 
@@ -79,26 +77,24 @@ Justifica breument la classificació realitzada.
 
 Per a cada tasca, explica:
 
-* per què és adequada (o no) per ser automatitzada,
-* quin avantatge aportaria l'automatització (estalvi de temps, reducció d’errors, regularitat, control, ...
-
-Relaciona aquesta justificació amb el criteri **3.1** de la RA03
+* Per què és adequada (o no) per ser automatitzada
+* Quin avantatge aportaria l'automatització (estalvi de temps, reducció d’errors, regularitat, control, ...
 
 ---
 
 ### 5. Anàlisi bàsica de riscos
 
-Per a cada tasca analitzada, descriu de manera **conceptual**:
+Per a cada tasca analitzada, descriu:
 
-* quin risc podria tenir una mala automatització,
-* quin tipus d’error podria produir-se,
-* quin seria l’impacte aproximat de l’error (baix, mitjà o alt).
+* Quin risc podria tenir una mala automatització  
+* Quin tipus d’error podria produir-se  
+* Quin seria l’impacte aproximat de l’error (baix, mitjà o alt)  
 
-No cal entrar en gestió avançada de permisos ni polítiques complexes.
+No cal entrar en gestió avançada de permisos ni polítiques complexes  
 
 ---
 
-## Taula-model d’identificació de tasques repetitives
+## Taula-model d'identificació de tasques repetitives
 
 Utilitza la taula següent per documentar les tasques identificades:
 
@@ -114,8 +110,11 @@ Utilitza la taula següent per documentar les tasques identificades:
 
 Cal lliurar **un document escrit** (PDF o Markdown) que inclogui:
 
-* introducció breu,
-* desenvolupament dels punts 1 a 5,
-* taula de tasques completada,
-* conclusions finals
+* Introducció breu
+* Desenvolupament dels punts 1 - 5 
+* Taula de tasques 
+* Conclusions finals  
+
+
+
 

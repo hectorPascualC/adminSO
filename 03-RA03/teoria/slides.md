@@ -237,8 +237,7 @@ Quan planifiquem una tasca, el sistema guarda:
 - L'usuari amb què s'executarà
 - Les condicions bàsiques d'execució
 
-No s'executa ara:  
-queda **programada**.
+No s'executa ara: queda **programada**.
 
 ---
 
@@ -247,12 +246,12 @@ queda **programada**.
 Encara que les eines siguin diferents:
 
 - Linux i Windows
-- línia d'ordres o interfície gràfica
+- Línia d'ordres o interfície gràfica
 
 El concepte és el mateix:
-> Programar una acció perquè el sistema la faci sol.
+> Programar una acció perquè el sistema la faci sol
 
-La diferència és **l'eina**, no la idea.
+La diferència és **l'eina**
 
 ---
 
@@ -454,7 +453,7 @@ sense entrar en gestió avançada (domini/polítiques complexes).
 - Entrada: llista d'usuaris "nous"
 - Acció: crear compte local o activar/desactivar
 - Verificació: comprovar existència/estat
-- Log: deixar evidència (fitxer o visor)
+- Log: deixar evidència (fitxer)
 
 ---
 
@@ -471,8 +470,7 @@ sense entrar en gestió avançada (domini/polítiques complexes).
 - Visualitzar millor la configuració
 - Fer l'administració més accessible
 
-Són especialment útils  
-en entorns educatius o d'iniciació.
+Són especialment útils en entorns educatius o d'iniciació  
 
 ---
 
@@ -483,9 +481,9 @@ en entorns educatius o d'iniciació.
 - Fan el **mateix** que les comandes
 - Canvia la manera d'interactuar
 - No canvia el resultat final
+- Task Scheduler, Crontab-UI (https://github.com/alseambusher/crontab-ui)
 
-El sistema continua executant  
-tasques automàtiques programades.
+El sistema continua executant tasques automàtiques programades  
 
 ---
 
@@ -498,65 +496,36 @@ tasques automàtiques programades.
 - Definir horaris i freqüències
 - Assignar l'usuari d'execució
 
-Sempre sota els mateixos criteris  
-de seguretat vistos abans.
-
----
-
-# 3.5.4 - Configuració bàsica d'una tasca
-
-**Una eina gràfica permet definir:**
-
-- Acció a executar
-- Moment d'execució
-- Usuari associat
-- Condicions bàsiques
-
-Aquests elements són comuns  
-a totes les plataformes.
-
----
-
-# 3.5.5 - Ús docent i professional
-
-**En entorns reals:**
-
-- Administradors experts poden usar comandes
-- Altres perfils utilitzen interfície gràfica
-- Ambdós enfoques conviuen
-
-Conèixer eines gràfiques  
-forma part del perfil professional.
+Sempre sota els mateixos criteris de seguretat vistos abans
 
 --- 
 
-
-# 3.6.5 - Exemple / Esquema 
+# 3.5.4 - Exemple / Esquema 
 
 **GUI és útil quan:**
-- cal visualitzar molts paràmetres
-- cal reduir errors de sintaxi
-- cal manteniment per part d'altres admins
+- Cal visualitzar molts paràmetres
+- Cal reduir errors de sintaxi
+- Cal manteniment per part d'altres admins
 
 ---
 
-# 3.6.5 - Exemple / Esquema - Per què GUI (eina gràfica)
+# 3.5.5 - Exemple / Esquema - Per què GUI (eina gràfica)
 
 **Comparació ràpida:**
 
 CLI:
 + ràpid per experts
-+ repetible
++ Fàcil de repetir i automatitzar
 - errors per sintaxi
 
 GUI:
 + més visual
 + guia (assistent)
-- menys ràpid si has de fer moltes tasques
+- Menys eficient si s’han de crear moltes tasques: obrir finestres, clicar botons, omplir formularis, avançar per assistents, confirmar opcions  
 
 ---
 
-# 3.6.6 - Exemple / Esquema - Parts d'una tasca en una GUI
+# 3.5.6 - Exemple / Esquema - Parts d'una tasca en una GUI
 
 **Quan crees una tasca en una eina gràfica, sempre hi ha:**
 
@@ -618,8 +587,7 @@ No cal documentació extensa, però sí **clara i útil**
 - Usuari d'execució
 - Finalitat de la tasca
 
-Aquesta informació permet  
-entendre i revisar la tasca.
+Aquesta informació permet entendre i revisar la tasca  
 
 ---
 
@@ -631,14 +599,23 @@ entendre i revisar la tasca.
 - Facilitar auditories
 - Millorar el manteniment del sistema
 
-Una tasca documentada  
-és una tasca controlada.
+Una tasca documentada és una tasca controlada  
 
 ---
 
 # 3.8 - Exemple / Esquema - Plantilla mínima de documentació
 
 **Plantilla:**
+
+Markdown, PDF, documents tipus Word / LibreOffice, Wiki corporativa (Confluence, GitLab Wiki...)
+
+```
+/automatitzacions
+ ├─ backup_diari.md
+ ├─ neteja_temp.md
+ └─ README.md
+
+```
 
 Nom de la tasca:
 Objectiu:
@@ -651,8 +628,7 @@ Com verificar que ha funcionat:
 Com desfer-ho (rollback bàsic):
 
 **Idea clau:**
-Si algú altre llegeix això, ha de poder entendre la tasca
-i verificar-la sense preguntar-te.
+Si algú altre llegeix això, ha de poder entendre la tasca i verificar-la sense preguntar-te  
 
 ---
 
