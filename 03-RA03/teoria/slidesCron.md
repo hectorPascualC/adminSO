@@ -145,7 +145,7 @@ Altres exemples:
 * 1-30/2 -> de l’1 al 30, cada 2  
 * `00 09-18 * * * /home/ramesh/bin/check-db-status` → check status de la bbdd cada dia
 * `30 08 10 06 * /home/ramesh/full-backup`→ executa backup a les 8:30 el 10 de juny (a l'any vinent es tornarà a executar)
-* `00 11,16 * * * /home/ramesh/bin/incremental-backup` → executa script de incremental backup cada dia a les 11:00 i a les 14:00  
+* `00 11,16 * * * /home/ramesh/bin/incremental-backup` → executa script de incremental backup cada dia a les 11:00 i a les 16:00  
 
 ---
 
