@@ -87,8 +87,12 @@ Cada camp defineix quan s’executa la tasca
 | 6     | Dissabte  |
 | 7     | Diumenge  |
 
+---
+
+# 3.3 - Estructura d'una línia de crontab
+
 * Antic sistema UNIX
-* 0 o 7 → diumenge
+* 0 ó 7 → diumenge
 * 1 → dilluns
 * 6 → dissabte
 
@@ -139,11 +143,23 @@ Aquesta tasca:
 
 Altres exemples: 
 * 1-30/2 -> de l’1 al 30, cada 2  
+* `00 09-18 * * * /home/ramesh/bin/check-db-status` → check status de la bbdd cada dia
+* `30 08 10 06 * /home/ramesh/full-backup`→ executa backup a les 8:30 el 10 de juny (a l'any vinent es tornarà a executar)
+* `00 11,16 * * * /home/ramesh/bin/incremental-backup` → executa script de incremental backup cada dia a les 11:00 i a les 14:00
+
+---
+
+# 3.5 - Exemple pràctic amb cron
 
 Errors possibles:
 * 0 25-60/3 * * *
 * bad hour
-* errors in crontab file, can't install.
+* errors in crontab file, can't install
+
+---
+
+# 3.5 - Exemple pràctic amb cron
+
 * si es desa en un fitxer del sistema, per exemple `/etc/crontab`
     * ignorarà la línia
     * la considerarà invàlida
@@ -236,12 +252,15 @@ journalctl -u atd
     * un temporitzador
     * un dispositiu 
 
+---
+
+# 3.10 - Verificació amb at
+
 Comprovar resultat:
 
 ```bash
 cat /home/usuari/tasca_at.log
 ```
-
 ---
 
 # 3.11 - Diferència entre cron i at
@@ -251,12 +270,11 @@ cron:
 * Tasques repetitives
 * Execució periòdica
 * [exemples cron](https://learning.lpi.org/en/learning-materials/102-500/107/107.2/107.2_01/)
+* [crontab guru](https://crontab.guru/examples.html)
 
 at:
 
 * Tasques puntuals
 * Execució única
 * [exemples at](https://learning.lpi.org/en/learning-materials/102-500/107/107.2/107.2_02/)
-
-```
 
