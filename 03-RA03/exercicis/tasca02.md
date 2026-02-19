@@ -39,6 +39,11 @@ Comprova si `at` està instal·lat:
 which at
 ```
 
+Comprova que el sistme està actiu:
+```bash
+systemctl status atd
+```
+
 Si no ho està:
 
 ```bash
@@ -78,7 +83,7 @@ Has de crear una tasca amb `cron` que compleixi **totes** les condicions següen
 * Desa la sortida al fitxer:
 
   ```
-  /home/USUARI/cron_logs/cron_5min.log
+ cron_logs/cron_5min.log
   ```
 
 *(Substitueix USUARI pel teu nom d’usuari real del sistema)*
