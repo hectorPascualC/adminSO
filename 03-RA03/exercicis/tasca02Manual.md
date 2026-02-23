@@ -61,6 +61,11 @@ Afegir:
 */5 * * * * /home/vboxuser/scripts/cron_5min.sh
 ```
 
+Nota: donar permissos al script per poder cron executar-lo
+```bash
+chmod +x /home/vboxuser/scripts/cron_5min.sh
+```
+
 ## Explicació de la línia
 
 ### `*/5 * * * *`
@@ -329,6 +334,11 @@ Fent referència a un script on està totes les comandes
 
 ```bash
 echo "/home/vboxuser/scripts/tasca_at.sh" | at now + 1 minute
+```
+
+Nota: donar permissos al script per poder cron executar-lo
+```bash
+chmod +x /home/vboxuser/scripts/tasca_at.sh
 ```
 
 ## Explicació A
