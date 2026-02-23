@@ -55,6 +55,11 @@ Afegir:
 ```bash
 */5 * * * * echo "TASCA CRON 5 MIN $(date)" >> /home/vboxuser/cron_logs/cron_5min.log
 ```
+ó
+```bash
+# Fem referència a un script on tenim totes les commandes i lògica
+*/5 * * * * /home/vboxuser/scripts/cron_5min.sh
+```
 
 ## Explicació de la línia
 
@@ -227,14 +232,18 @@ Automatitzar això serveix per:
 
 ### `2>&1`
 
-Quan executem una comanda, Linux crea un procés.
+Quan executem una comanda, Linux crea un procés
 
 Cada procés té canals:
 
-| Número | Nom    | Funció           |
-| ------ | ------ | ---------------- |
-| 1      | stdout | Sortida normal   |
-| 2      | stderr | Sortida d’errors |
+| Número | Nom    | Funció             |
+| ------ | ------ | ------------------ |
+| 0      | stdin  | Entrada del procés |
+| 1      | stdout | Sortida normal     |
+| 2      | stderr | Sortida d’errors   |
+
+Els canals són les vies de comunicació d’un procés
+
 
 `2>&1` significa:
 
@@ -283,6 +292,8 @@ mkdir -p /home/vboxuser/at_logs
 
 ### 2. Crear tasca
 
+#### Opció A
+
 ```bash
 at now + 1 minute
 ```
@@ -293,14 +304,34 @@ Escriure:
 echo "TASCA AT EXECUTADA" >> /home/vboxuser/at_logs/tasca_at.log
 ```
 
+
 Finalitzar amb:
 
 ```
 CTRL + D
 ```
 
+#### Opció B
 
-## Explicació 
+```bash
+echo "echo 'TASCA AT EXECUTADA' >> /home/vboxuser/at_logs/tasca_at.log" | at now + 1 minute
+```
+
+En aquest cas:
+
+* `echo` genera el text de la comanda.
+* El símbol `|` (pipe) envia aquest text a `at`
+* `at` rep aquesta entrada automàticament.
+* No cal prémer `CTRL + D`
+
+#### Opció C
+Fent referència a un script on està totes les comandes
+
+```bash
+echo "/home/vboxuser/scripts/tasca_at.sh" | at now + 1 minute
+```
+
+## Explicació A
 
 ### Per què CTRL+D?
 
@@ -337,6 +368,16 @@ Mostra la cua de tasques pendents
 
 ```bash
 cat /home/vboxuser/at_logs/tasca_at.log
+```
+
+## Explicació B
+
+Forma amb pipe
+
+Pipe: Connectar la sortida d’una comanda amb l’entrada d’una altra
+
+```bash
+echo "comanda" | at now + 1 minute
 ```
 
 # Errors habituals explicats
