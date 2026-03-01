@@ -218,7 +218,18 @@ Command:
 echo "WEBMIN CRON $(date)" >> /home/USUARI/cron_logs/webmin_cron.log
 ```
 
-De les 5 columnes gràfiques que apareixen, seleciona la de `minutes` i activa els 5 minuts
+A **When to execute**:
+
+**Opció simple**
+
+* A “Simple schedule” busca una opció tipus **Every 5 minutes**
+
+**Opció manual**
+
+* Selecciona minuts: **0, 5, 10, 15, 20, ... 55**
+
+  * (has de fer Ctrl+click per seleccionar múltiples minuts; Webmin ho recorda al peu del formulari)   
+  * si selecciones només 5, ho efectuarà al minut 5 de cada hora: 10:05, 11:05, 12:05...
 
 Cliquem finalment a `Create
 
