@@ -78,10 +78,10 @@ echo "WEBMIN CRON $(date)" >> /home/vboxuser/cron_logs/webmin_cron.log
 
 A **When to execute** ![Imatge 4](img/imatge4.png):
 
-De les 5 columnes gràfiques que apareixen, seleciona la de `minutes` i activa els 5 minuts
+* Selecciona minuts: **0, 5, 10, 15, 20, ... 55**
 
-Desa
-
+  * (has de fer Ctrl+click per seleccionar múltiples minuts; Webmin ho recorda al peu del formulari)   
+  * si selecciones només 5, ho efectuarà al minut 5 de cada hora: 10:05, 11:05, 12:05...
 
 ### 2.2.4 Create
 
