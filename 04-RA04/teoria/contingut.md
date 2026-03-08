@@ -338,6 +338,77 @@ Tot i això, aquest tipus de connexió consumeix **més recursos de xarxa** que 
 
 Per aquest motiu, en entorns d’administració de servidors sovint es prefereix utilitzar **SSH**, reservant l’escriptori remot per a situacions específiques.
 
+## 4.4.1 Accés remot en Windows amb RDP
+
+### Definició
+
+**RDP (Remote Desktop Protocol)** és un protocol desenvolupat per Microsoft que permet **connectar-se remotament a un sistema Windows i controlar el seu escriptori gràfic**.
+
+Mitjançant RDP, l’usuari pot veure la pantalla del sistema remot i interactuar amb ell utilitzant el teclat i el ratolí, com si estigués treballant directament davant de l’ordinador.
+
+Aquest protocol és molt utilitzat en entorns Windows per a tasques d’administració remota i suport tècnic.
+
+---
+
+### Funcionament
+
+RDP utilitza un model **client-servidor**:
+
+* **Servidor RDP** → sistema Windows que permet connexions remotes
+* **Client RDP** → aplicació utilitzada per connectar-se al sistema remot
+
+Quan un usuari inicia una connexió, el servidor envia al client **la imatge de l’escriptori remot**, mentre que el client envia al servidor **les accions de l’usuari** (teclat i ratolí).
+
+Esquema simplificat:
+
+```text
+Client RDP
+(teclat i ratolí)
+        │
+        │ connexió de xarxa
+        │
+Servidor RDP
+(escriptori remot Windows)
+```
+
+---
+
+### Port utilitzat
+
+RDP utilitza per defecte el port:
+
+```text
+3389
+```
+
+Aquest port pot ser controlat mitjançant **firewalls** o modificat per millorar la seguretat del sistema.
+
+---
+
+### Exemple de connexió
+
+En sistemes Windows es pot utilitzar l’aplicació **Remote Desktop Connection**.
+
+L’usuari introdueix l’adreça del servidor:
+
+```text
+192.168.1.50
+```
+
+Després d’introduir les credencials, el sistema obre **l’escriptori remot del servidor**.
+
+---
+
+### Avantatges de RDP
+
+RDP és molt utilitzat perquè:
+
+* permet controlar completament l’escriptori remot
+* està integrat en sistemes Windows
+* facilita el suport tècnic i l’administració remota
+* permet executar aplicacions gràfiques instal·lades en el servidor
+
+Per aquest motiu és una eina habitual en la gestió de servidors i estacions de treball Windows.
 
 ## 4.5 VNC i eines gràfiques d’administració remota
 
