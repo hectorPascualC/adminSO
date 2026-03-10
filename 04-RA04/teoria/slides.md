@@ -174,7 +174,12 @@ Exemple:
 uname -a
 ```
 
-Mostra informació del sistema operatiu i del kernel.
+Mostra informació del sistema operatiu i del kernel
+
+Exemple de sortida:
+```bash
+Linux servidor 6.5.0-21-generic #21-Ubuntu SMP x86_64 GNU/Linux
+```
 
 ---
 
@@ -222,7 +227,6 @@ El servidor escolta connexions al **port 22**.
 ```bash
 ssh admin@192.168.1.20
 ```
-
 Sessió típica:
 
 ```
@@ -238,11 +242,13 @@ admin@server:~$
 
 Si el servidor utilitza un altre port:
 
+~/.ssh/config > podem canviar port per connectar-se des de client
+
+ó
+
 ```bash
 ssh -p 2222 admin@192.168.1.20
 ```
-
-Això connecta al port **2222**.
 
 ---
 
@@ -292,40 +298,50 @@ El servidor envia la pantalla al client.
 | RDP      | Escriptori remot | TLS (AES)            | Credencials Windows             | Alt                 |
 | VNC      | Escriptori remot | Limitat o opcional   | Password simple                 | Mitjà / baix        |
 
+---
+
+# Seguretat
+
+> SSH utilitza criptografia asimètrica per establir la sessió i per a l’autenticació, 
+però després utilitza xifrat simètric per protegir la comunicació
+
+* SSH amb Password o clau pública/privada
+  * el client SSH es connecta al servidor
+  * el servidor demana la contrasenya de l’usuari  
+  * si és correcta, es permet l’accés
+
+```
+ssh admin@192.168.1.10
+admin@192.168.1.10's password:
+```
+---
+
+* SSH amb clau pública/privada
+  * es generen claus totes dues claus
+  * la clau privada es queda al client  
+  * la clau pública es copia al servidor  
+  * quan el client es connecta:
+    * el servidor veu la clau pública autoritzada del client   
+    * el servidor envia un repte criptogràfic (challenge)  
+    * el client utilitza la seva clau privada per signar aquest repte  
+    * el servidor utilitza la clau pública que té guardada per comprovar la signatura  
 
 ---
 
 # RDP (Remote Desktop Protocol)
 
-Protocol d'escriptori remot desenvolupat per Microsoft.
-
-Permet controlar un sistema Windows remot.
-
----
-
-# Funcionament de RDP
-
-Client RDP
-(teclat / ratolí)
-        │
-        │ xarxa
-        │
-Servidor Windows
-(escriptori remot)
+* Protocol d'escriptori remot desenvolupat per Microsoft.
+* Permet controlar un sistema Windows remot.
 
 ---
 
 # Port utilitzat
 
-Port per defecte:
-
-3389
+Port per defecte: 3389
 
 El client introdueix l'adreça del servidor
 
-Exemple:
-
-192.168.1.50
+Exemple: 192.168.1.50
 
 ---
 
@@ -390,35 +406,19 @@ Sessions:
 192.168.1.20:5900
 ```
 
-El client mostra la pantalla del servidor.
+El client mostra la pantalla del servidor
 
 ---
 
 # 4.6 Protocols i ports
 
-Els serveis remots utilitzen ports específics.
+Els serveis remots utilitzen ports predefinits
 
 | Protocol | Port |
 | -------- | ---- |
 | SSH      | 22   |
 | RDP      | 3389 |
 | VNC      | 5900 |
-
----
-
-# Exemple real
-
-Quan executem:
-
-```bash
-ssh admin@192.168.1.20
-```
-
-El client intenta connectar-se al:
-
-```
-port 22
-```
 
 ---
 
@@ -429,6 +429,7 @@ El servei SSH s'executa com:
 ```
 sshd
 ```
+El programa que implementa el servidor SSH al sistema s'anomena sshd i és el procés que s'executa en segon pla
 
 Comprovar estat:
 
@@ -444,7 +445,7 @@ systemctl status ssh
 sudo systemctl start ssh
 ```
 
-Ara el servidor acceptarà connexions remotes.
+Ara el servidor acceptarà connexions remotes
 
 ---
 
@@ -498,7 +499,7 @@ Exemple:
 AllowUsers admin hector
 ```
 
-Només aquests usuaris poden accedir.
+Només aquests usuaris poden accedir
 
 ---
 
@@ -518,7 +519,7 @@ ssh admin@192.168.1.20
 
 ---
 
-# Comprovar servei
+# Comprovar servei  
 
 ```bash
 systemctl status ssh
