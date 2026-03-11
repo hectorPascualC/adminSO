@@ -263,7 +263,7 @@ El servidor envia la pantalla al client.
 > SSH utilitza criptografia asimètrica per establir la sessió i per a l’autenticació, 
 però després utilitza xifrat simètric per protegir la comunicació
 
-* SSH amb Password o clau pública/privada
+* SSH amb Password 
   * el client SSH es connecta al servidor
   * el servidor demana la contrasenya de l’usuari  
   * si és correcta, es permet l’accés
