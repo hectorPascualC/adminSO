@@ -66,29 +66,6 @@ Normalment inclou:
 
 ---
 
-# Exemple d'infraestructura CPD
-
-```
-
-Administradors
-│
-│ connexió remota
-│
-┌───────────────┐
-│      CPD      │
-│               │
-│  Servidor 1   │
-│  Servidor 2   │
-│  Servidor 3   │
-│               │
-└───────────────┘
-
-```
-
-Els administradors gestionen els servidors **des d’altres ubicacions**.
-
----
-
 # 4.1 Administració remota
 
 Permet gestionar un sistema remot per:
@@ -144,28 +121,6 @@ El sistema espera una comanda.
 
 ---
 
-# Exemples d'ordres
-
-Consultar directori actual
-
-```bash
-pwd
-```
-
-Llistar fitxers
-
-```bash
-ls
-```
-
-Canviar directori
-
-```bash
-cd /etc
-```
-
----
-
 # Informació del sistema
 
 Exemple:
@@ -211,14 +166,17 @@ A Windows també s'utilitza encara que històricament no el portava integrat i e
 # Funcionament d’SSH
 
 ```
-Client SSH
-      │
-      │ connexió xifrada
-      │
-Servidor SSH (sshd)
+Client                         Servidor
+------                         --------
+
+ssh   ───── connexió SSH ───►  sshd
 ```
 
-El servidor escolta connexions al **port 22**.
+El servidor escolta connexions al **port 22**
+
+SSH és el programa que utilitza l’usuari per iniciar una connexió remota
+
+SSHD és el programa que funciona al servidor i que espera connexions entrants
 
 ---
 
@@ -242,7 +200,7 @@ admin@server:~$
 
 Si el servidor utilitza un altre port:
 
-~/.ssh/config > podem canviar port per connectar-se des de client
+**~/.ssh/config** > podem canviar port per connectar-se des de client
 
 ó
 
@@ -317,7 +275,7 @@ admin@192.168.1.10's password:
 ---
 
 * SSH amb clau pública/privada
-  * es generen claus totes dues claus
+  * es generen totes dues claus
   * la clau privada es queda al client  
   * la clau pública es copia al servidor  
   * quan el client es connecta:
@@ -475,12 +433,14 @@ Exemple d'usuaris Linux:
 
 ```bash
 cat /etc/passwd
+# hector:x:1000:1000:Hector Pascual:/home/hector:/bin/bash
 ```
 
 Crear usuari:
 
 ```bash
 sudo adduser usuari
+# el sistema et demanarà que assignis una contrasenya a l’usuari durant el procés de creació.
 ```
 
 ---
