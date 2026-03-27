@@ -378,42 +378,6 @@ Documentar vol dir indicar:
 
 ---
 
-## 16. Resum final
-
-### Bloc 1 · Fonaments
-Procés, tipus, estructura, estats.
-
-### Bloc 2 · Execució interna
-Interrupcions, excepcions, fils, prioritats.
-
-### Bloc 3 · Administració pràctica
-Comandes, eines gràfiques, control i seguiment.
-
-### Bloc 4 · Relació amb el sistema
-`/proc`, arrencada, `systemd`, dimonis.
-
-### Bloc 5 · Administració segura
-Detecció, resposta i documentació.
-
----
-
-## Preguntes clau per estudiar
-
-1. Què diferencia **procés**, **fil** i **treball**?
-2. Quins són els **estats** d'un procés?
-3. Per a què serveix **`/proc`**?
-4. Quan faries servir **`kill -9`**?
-5. Quina relació hi ha entre **arrencada**, **PID 1** i **dimonis**?
-6. Quines mesures prendries davant un **procés sospitós**?
-
----
-
 ## Fi
 
 **RA02 preparada en format Marp**
-
-Si vols, al següent pas et puc fer també:
-
-- una **versió més visual**
-- una **versió més curta per exposar**
-- o una **versió amb imatges del ZIP**
