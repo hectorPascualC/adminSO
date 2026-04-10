@@ -377,7 +377,7 @@ Document
 
 Frase:
 
-> “També es pot utilitzar at amb pipe per evitar el mode interactiu.”
+> “També es pot utilitzar at amb pipe per evitar el mode interactiu”
 
 ---
 
