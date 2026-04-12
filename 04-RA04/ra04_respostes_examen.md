@@ -342,7 +342,7 @@ rsync -av backupuser@192.168.1.20:/data/backups ~/copia_remota
 
 **a. Quin protocol s’està utilitzant en cada cas**  
 - A la primera comanda s’utilitza **SSH**
-- A la segona s’utilitza **rsync** sobre una connexió remota amb SSH, tal com està plantejat al manual
+- A la segona s’utilitza **rsync** sobre una connexió remota amb SSH, tal com està plantejat al manual > per tant SSH
 
 **b. Quin port s’utilitza per defecte**  
 El port per defecte és el **22**, perquè la connexió remota és SSH.
