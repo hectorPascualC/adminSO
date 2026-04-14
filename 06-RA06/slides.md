@@ -40,7 +40,7 @@ En una xarxa real sovint conviuen:
 - impressores de xarxa
 - clients amb sistemes diferents
 
-Per això cal garantir la **interoperabilitat**.
+Per això cal garantir la **interoperabilitat**: la capacitat que tenen sistemes diferents de comunicar-se, entendre’s i treballar junts
 
 ---
 
@@ -53,7 +53,7 @@ Integrar sistemes operatius vol dir:
 - accedir a serveis de manera compatible
 - treballar de manera coordinada
 
-No es tracta que tots siguin iguals, sinó que **es puguin entendre**.
+NEs tracta de que **es puguin entendre**
 
 ---
 
@@ -65,7 +65,7 @@ La integració real apareix quan els equips poden:
 - utilitzar impressores de xarxa
 - autenticar-se i treballar amb permisos adequats
 
-Això és el que anomenem **interoperabilitat**.
+Això és el que anomenem **interoperabilitat**
 
 ---
 
@@ -78,13 +78,13 @@ Una situació típica:
 - carpeta comuna en xarxa
 - impressora compartida
 
-Si tots els equips poden utilitzar aquests recursos, la integració és correcta.
+La integració és correcta si tots els equips poden utilitzar aquests recursos
 
 ---
 
 # 6.2 Escenaris heterogenis de xarxa
 
-Un escenari heterogeni és una xarxa on conviuen equips diferents pel que fa a:
+Un **escenari heterogeni** és una xarxa on conviuen equips diferents pel que fa a:
 
 - sistema operatiu
 - serveis instal·lats
@@ -97,13 +97,7 @@ Un escenari heterogeni és una xarxa on conviuen equips diferents pel que fa a:
 
 # Exemple d'escenari heterogeni
 
-```
-Clients Windows ─────┐
-                     ├── Xarxa local ─── Servidor Linux ─── Recursos compartits
-Client Linux ────────┘
-```
-
-El servidor és el punt central i els clients han de poder accedir-hi encara que siguin diferents.
+![escenariHeterogeni](img/heterogeneousInteroperability.png)
 
 ---
 
@@ -129,7 +123,7 @@ Quan una carpeta del servidor es comparteix correctament:
 - poden modificar-los si tenen permisos
 - la informació queda centralitzada
 
-Això evita duplicacions i facilita el treball comú.
+Això evita duplicacions i facilita el treball comú
 
 ---
 
@@ -163,11 +157,11 @@ La seguretat és clau tant en carpetes com en impressores compartides.
 
 En un recurs compartit poden aparèixer permisos com:
 
-- **lectura**
-- **lectura i escriptura**
-- **control total**
+- **lectura**: r
+- **lectura i escriptura**: rw
+- **control total**: rwx
 
-No tots els usuaris han de tenir el mateix nivell d'accés.
+No tots els usuaris han de tenir el mateix nivell d'accés
 
 ---
 
@@ -178,7 +172,7 @@ Per controlar l'accés és habitual treballar amb:
 - usuaris
 - grups d'usuaris
 
-Això simplifica la gestió i evita haver de configurar permisos un per un.
+Això simplifica la gestió i evita haver de configurar permisos un per un
 
 ---
 
@@ -188,9 +182,9 @@ En qualsevol recurs compartit s'hauria d'aplicar aquest criteri:
 
 - donar només els permisos necessaris
 - evitar permisos excessius
-- separar usuaris que consulten d'usuaris que modifiquen
+- separar usuaris que consulten dels que modifiquen
 
-Això és el **principi de mínim privilegi**.
+Això és el **principi de mínim privilegi**
 
 ---
 
@@ -202,26 +196,14 @@ Cal comprovar:
 
 - adreçament IP correcte
 - mateixa xarxa o ruta entre equips
-- resolució de noms
+- resolució de noms d’equips o servidors dins de la xarxa
 - absència de bloquejos al tallafoc
-
----
-
-# Exemple bàsic de comprovació
-
-Una prova inicial habitual és:
-
-```bash
-ping 192.168.1.10
-```
-
-Això confirma comunicació mínima, tot i que encara no garanteix que el servei compartit funcioni.
 
 ---
 
 # 6.6 Serveis de xarxa per compartir recursos
 
-Per compartir carpetes o impressores no n'hi ha prou amb crear-les.
+Per compartir carpetes o impressores no n'hi ha prou amb crear-les
 
 Cal un **servei de xarxa** que actuï entre servidor i clients.
 
@@ -248,7 +230,7 @@ Exemples:
 
 # 6.7 Samba
 
-**Samba** és el servei més habitual quan un servidor Linux ha de compartir carpetes amb equips Windows.
+**Samba** és el servei més habitual quan un servidor Linux ha de compartir carpetes amb equips Windows
 
 Permet:
 
@@ -259,52 +241,36 @@ Permet:
 
 ---
 
-# Què permet Samba
-
-En termes pràctics, Samba permet:
+# Què permet Samba tècnicament
 
 - publicar carpetes a la xarxa
 - validar l'accés dels usuaris
-- fer visibles recursos Linux des de Windows
+- fer visibles recursos Linux des de Windows i a l'inrevés
 - mantenir control sobre permisos i accessos
-
-Això el converteix en una peça clau de la interoperabilitat.
 
 ---
 
 # Exemple d'ús
 
-Imaginem una carpeta del servidor Linux:
+Carpeta del servidor Linux:
 
 ```text
 /srv/compartit
 ```
 
-Si es configura amb Samba, un equip Windows la podrà veure com un recurs de xarxa i accedir-hi amb les credencials corresponents.
+Si es configura amb Samba, un equip Windows la podrà veure com un recurs de xarxa i accedir-hi amb les credencials corresponents
 
 ---
 
 # 6.8 Configuració de recursos compartits
 
-Quan el servei ja està instal·lat, cal configurar el recurs que realment es vol oferir.
+Quan el servei ja està instal·lat, cal configurar el recurs que realment es vol oferir
 
 Això implica decidir:
 
 - què es compartirà
-- qui hi podrà accedir
-- amb quins permisos
-
----
-
-# Exemple conceptual de recurs compartit
-
-Una configuració típica pot partir d'una carpeta com aquesta:
-
-```bash
-sudo mkdir -p /srv/compartit
-```
-
-Després s'ajusten permisos i es defineix el recurs dins de la configuració de Samba.
+- qui pot accedir
+- quins permisos tindrà qui accedeix
 
 ---
 
@@ -317,52 +283,65 @@ Accés                      →  usuaris autoritzats
 Permisos                   →  lectura o lectura/escriptura
 ```
 
-El client veu el recurs publicat, no l'estructura interna completa del servidor.
+El client veu el recurs publicat, no l'estructura interna completa del servidor
 
 ---
 
 # Usuaris i autenticació
 
-Un recurs compartit no s'hauria de deixar obert indiscriminadament.
+Un recurs compartit no s'hauria de deixar obert a tot o tothom
 
 La compartició depèn de la relació entre:
 
-- directori real al servidor
-- usuari que hi accedeix
-- servei que valida l'accés
-- permisos finals sobre el recurs
+- la carpeta real ha d’existir al servidor
+- l’usuari ha d’estar definit i autoritzat
+- el servei de compartició es qui convalida l'usuari
+- els permisos del recurs han de permetre l’operació que l’usuari vol fer
 
 ---
 
 # Configuració d'impressores compartides
 
-En la impressió, el raonament és semblant.
+En el cas de la impressió, el procés és semblant, però el servei principal és **CUPS**.
 
 Primer cal:
 
-- definir la impressora al sistema
+- donar d’alta la impressora al sistema
 - gestionar-la amb **CUPS**
-- decidir si es comparteix o no
-- provar-ne l'accés des dels clients
+- decidir si es comparteix en xarxa
+- provar-la des dels clients
+
+**CUPS** és el servei d’impressió de Linux i s’utilitza per administrar i compartir impressores.
+
+---
+
+# CUPS
+
+**CUPS (Common Unix Printing System)** és el sistema d’impressió habitual en Linux
+
+Serveix per:
+
+- afegir impressores
+- gestionar cues d’impressió
+- compartir impressores en xarxa
+- enviar treballs d’impressió
 
 ---
 
 # 6.9 Proves de funcionament
 
-Després d'instal·lar el servei i configurar el recurs, cal comprovar que tot funciona de veritat.
-
-Això vol dir verificar:
+Després d'instal·lar el servei i configurar el recurs, cal comprovar que tot funciona:
 
 - accés des de sistemes diferents
 - autenticació correcta
-- lectura i escriptura quan pertoqui
+- lectura i escriptura quan toca
 - ús real del recurs
 
 ---
 
 # Proves sobre una carpeta compartida
 
-Una seqüència raonable de comprovació és:
+Seqüència de comprovació:
 
 - localitzar el servidor
 - accedir al recurs compartit
@@ -383,21 +362,9 @@ En una impressora compartida convé verificar:
 
 ---
 
-# Treball en grup en un entorn mixt
-
-Una bona prova no és només una connexió puntual.
-
-També interessa comprovar:
-
-- diversos usuaris entrant a la mateixa carpeta
-- diferents equips imprimint sobre la mateixa impressora
-- que cada usuari veu només allò que li correspon
-
----
-
 # 6.10 Documentació de la configuració
 
-Quan el servei ja funciona, cal documentar el que s'ha configurat.
+Quan el servei ja funciona, cal documentar el que s'ha configurat
 
 La documentació hauria d'incloure com a mínim:
 
