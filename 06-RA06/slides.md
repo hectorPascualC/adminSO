@@ -264,19 +264,6 @@ Això implica decidir:
 
 ---
 
-# Relació entre nom i ruta del recurs
-
-```text
-Nom del recurs a la xarxa  →  compartit
-Ruta real al servidor      →  /srv/compartit
-Accés                      →  usuaris autoritzats
-Permisos                   →  lectura o lectura/escriptura
-```
-
-El client veu el recurs publicat, no l'estructura interna completa del servidor
-
----
-
 # Usuaris i autenticació
 
 Un recurs compartit no s'hauria de deixar obert a tot o tothom
@@ -368,7 +355,7 @@ La documentació hauria d'incloure com a mínim:
 
 ---
 
-# Exemple simple de documentació
+# Exemple simple de documentació per recurs compartit
 
 ```
 Servei: Samba
