@@ -53,7 +53,7 @@ Integrar sistemes operatius vol dir:
 - accedir a serveis de manera compatible
 - treballar de manera coordinada
 
-NEs tracta de que **es puguin entendre**
+Es tracta de que **es puguin entendre**
 
 ---
 
@@ -91,7 +91,10 @@ Un **escenari heterogeni** és una xarxa on conviuen equips diferents pel que fa
 - gestió de permisos
 - manera d'accedir als recursos
 
-És la situació més habitual en empreses i centres educatius.
+És la situació més habitual en empreses i centres educatius
+
+- Interoperabilitat = treballar junts
+- Heterogeni = elements diferents
 
 ---
 
@@ -103,7 +106,7 @@ Un **escenari heterogeni** és una xarxa on conviuen equips diferents pel que fa
 
 # 6.3 Recursos compartits en xarxa
 
-Un recurs compartit és qualsevol element d'un sistema que es posa a disposició d'altres equips.
+Un **recurs compartit** és qualsevol element d'un sistema que es posa a disposició d'altres equips
 
 Els més habituals són:
 
@@ -116,11 +119,11 @@ Els més habituals són:
 
 # Compartició d'arxius
 
-Quan una carpeta del servidor es comparteix correctament:
+Quan una carpeta del servidor es comparteix:
 
 - els clients autoritzats hi poden entrar
 - poden llegir documents
-- poden modificar-los si tenen permisos
+- poden modificar-los segons permisos
 - la informació queda centralitzada
 
 Això evita duplicacions i facilita el treball comú
@@ -141,15 +144,14 @@ Avantatges:
 
 # 6.4 Seguretat d'accés als recursos compartits
 
-Compartir un recurs no vol dir obrir-lo a tothom.
+Compartir un recurs no vol dir obrir-lo a tothom  
 
-Cal decidir:
+Cal veure:
 
 - qui hi pot accedir
-- què hi pot fer
-- amb quins permisos
+- què hi pot fer dins del recurs
 
-La seguretat és clau tant en carpetes com en impressores compartides.
+La seguretat és clau tant en carpetes com en impressores compartides 
 
 ---
 
@@ -207,7 +209,7 @@ Per compartir carpetes o impressores no n'hi ha prou amb crear-les
 
 Cal un **servei de xarxa** que actuï entre servidor i clients.
 
-En aquesta RA els dos serveis principals són:
+Els dos serveis principals són:
 
 - **Samba**
 - **CUPS**
@@ -223,8 +225,8 @@ En aquesta RA els dos serveis principals són:
 
 Exemples:
 
-- Samba → servei / carpeta compartida → recurs
-- CUPS → servei / impressora → recurs
+- **Samba** → servei / carpeta compartida → recurs
+- **CUPS** → servei / impressora → recurs
 
 ---
 
@@ -247,18 +249,6 @@ Permet:
 - validar l'accés dels usuaris
 - fer visibles recursos Linux des de Windows i a l'inrevés
 - mantenir control sobre permisos i accessos
-
----
-
-# Exemple d'ús
-
-Carpeta del servidor Linux:
-
-```text
-/srv/compartit
-```
-
-Si es configura amb Samba, un equip Windows la podrà veure com un recurs de xarxa i accedir-hi amb les credencials corresponents
 
 ---
 
