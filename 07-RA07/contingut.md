@@ -1,14 +1,5 @@
 # RA07 - Llenguatges de guions en sistemes operatius
 
-## Nota prèvia
-Aquest document s’ha redactat seguint la mateixa línia de contingut de la RA06 i s’ha construït **només a partir del llibre aportat**. Per això, el desenvolupament se centra en els blocs del llibre que tracten directament:
-
-- **PowerShell** en entorns Windows
-- **Gestió de processos** i **automatització de tasques** en GNU/Linux
-- eines de planificació com **cron**, **crontab**, **anacron** i **at**
-
-No s’hi afegeix teoria externa. Quan algun punt curricular no apareix desenvolupat com a apartat propi al llibre, s’explica únicament fins on el llibre el mostra de manera explícita.
-
 ## Índex
 - [7.1 Context dels llenguatges de guions en l’administració de sistemes](#71-context-dels-llenguatges-de-guions-en-ladministració-de-sistemes)
 - [7.2 Estructures bàsiques del llenguatge segons el llibre](#72-estructures-bàsiques-del-llenguatge-segons-el-llibre)
