@@ -1,6 +1,6 @@
 # Pràctica 1 - Compartició de carpetes en xarxa amb Samba
 
-## Manual auditat i reforçat
+## Manual 
 
 ## Relació amb la RA06
 
