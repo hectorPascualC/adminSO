@@ -30,9 +30,7 @@ Per tant, dins de la RA07, el paper dels llenguatges de guions queda lligat a tr
 
 Això connecta directament amb el sentit pràctic d’aquesta RA: no es tracta només de conèixer comandes soltes, sinó d’entendre com es poden fer servir com a base per construir tasques d’administració més estables i repetibles.
 
-## 7.2 Estructures bàsiques del llenguatge segons el llibre
-
-El llibre no presenta una teoria abstracta llarga sobre sintaxi de llenguatges de scripting, però sí que mostra diverses **estructures bàsiques de treball** que permeten entendre com s’organitzen els guions en els dos entorns que tracta.
+## 7.2 Estructures bàsiques del llenguatge
 
 En **PowerShell**, la unitat bàsica de treball és el **cmdlet**. El llibre explica que totes les ordres reben aquest nom i que, per consultar els cmdlets disponibles, es pot executar una ordre com aquesta:
 
@@ -47,7 +45,7 @@ Això ja ens mostra diversos trets importants:
 - es poden combinar diverses parts en una mateixa línia
 - es poden filtrar o processar resultats
 
-A més, el llibre insisteix en una idea clau: **PowerShell està basat en objectes**. Això el diferencia d’altres línies de comandes més tradicionals, perquè la informació que es rep no és només text, sinó objectes sobre els quals després es poden aplicar més ordres.
+**PowerShell està basat en objectes**. Això el diferencia d’altres línies de comandes més tradicionals, perquè la informació que es rep no és només text, sinó objectes sobre els quals després es poden aplicar més ordres.
 
 En **GNU/Linux**, l’estructura bàsica que el llibre desenvolupa amb més detall és la de **cron**. Aquí el llenguatge no es presenta com una sintaxi de programació general, sinó com una expressió de planificació temporal. El llibre indica que les línies de programació es divideixen en dues parts:
 

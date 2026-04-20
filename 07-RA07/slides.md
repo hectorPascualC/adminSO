@@ -31,27 +31,31 @@ ASIX02
 
 ---
 
+# Definició
+
+Un llenguatge de guions és un llenguatge pensat per escriure ordres en forma de fitxer perquè el sistema les executi una darrere l’altra  
+
+---
+
 # Context dels llenguatges de guions
 
-Segons el llibre, la idea central és convertir tasques habituals en:
+La idea central és convertir tasques habituals en:
 
 - seqüències repetibles
 - ordres controlables
 - execucions automàtiques
 - administració més eficient
 
-Això apareix sobretot en **PowerShell** i en eines de **GNU/Linux**.
+Això apareix sobretot en **PowerShell** i en guions de shell de **GNU/Linux**, utilitzant ordres del sistema com id, ps, pgrep i systemctl  
 
 ---
 
 # Dos entorns principals
 
-El llibre treballa la RA07 des de dos blocs:
-
 - **Windows** amb **PowerShell**
-- **GNU/Linux** amb **cron**, **crontab**, **anacron** i **at**
+- **GNU/Linux** amb **Bash** o scripts de **shell**
 
-En tots dos casos, el propòsit és administrar el sistema a partir de comandes i scripts.
+En tots dos casos, el propòsit és administrar el sistema a partir de comandes i scripts
 
 ---
 
@@ -69,7 +73,7 @@ Permeten:
 
 # 7.1 Context dels llenguatges de guions
 
-Dins d'aquesta RA, els guions queden lligats a tres idees bàsiques:
+Els guions queden lligats a tres idees bàsiques:
 
 - administració des de línia d'ordres
 - combinació de comandes per a tasques del sistema
@@ -79,32 +83,106 @@ Dins d'aquesta RA, els guions queden lligats a tres idees bàsiques:
 
 # 7.2 Estructures bàsiques del llenguatge
 
-El llibre no fa una teoria abstracta llarga, però sí mostra estructures bàsiques com:
+Tenim unes estructures bàsiques com:
 
-- ordres amb **nom + paràmetres**
-- comandes combinades
-- filtres i selecció de resultats
-- expressions temporals de **cron**
+- ordres amb **nom + paràmetres**:
+```bash
+    ls -l /home
+    # ls és la comanda
+    # -l és un paràmetre
+    # /home és l’objectiu sobre el qual actua
+```
+- comandes combinades: 
+```bash
+    ps aux | grep ssh  
+    # ps aux mostra processos
+    # grep ssh filtra els que contenen ssh
+```
+
+---
+
+# 7.2 Estructures bàsiques del llenguatge
+
+- filtres i selecció de resultats: `cat /etc/passwd | grep hector`  
+```bash
+    cat /etc/passwd | grep hector
+    # cat /etc/passwd mostra el contingut del fitxer
+    # grep hector selecciona només les línies on surt hector
+```
+- variables
+```bash
+    USUARI="hector"
+    echo $USUARI
+    # USUARI guarda un valor
+    # echo $USUARI mostra el contingut de la variable
+```
+
+---
+
+# 7.2 Estructures bàsiques del llenguatge
+
+- condicionals if  
+```bash
+    if id "$USUARI" >/dev/null 2>&1; then
+        echo "L'usuari existeix"
+    else
+        echo "L'usuari no existeix"
+    fi
+    # if comprova una condició
+    # then executa el bloc si es compleix
+    # else executa el bloc alternatiu
+    # fi tanca l'estructura
+```
+
+---
+
+# 7.2 Estructures bàsiques del llenguatge
+
+- bucles for o while
+```bash
+    COMPTADOR=1
+    while [ $COMPTADOR -le 3 ]; do
+        echo $COMPTADOR
+        COMPTADOR=$((COMPTADOR+1))
+    done
+    # while repeteix el bloc mentre es compleixi la condició
+    # el comptador va augmentant a cada volta
+```
 
 ---
 
 # Estructura bàsica a PowerShell
 
-La unitat bàsica és el **cmdlet**.
-
-Exemple del llibre:
+L’ordre bàsica pròpia de PowerShell és el `cmdlet`
 
 ```powershell
-Get-Command -CommandType cmdlet | Measure-Object
+    Get-Command -CommandType cmdlet | Measure-Object
+    # Get-Command mostra les comandes disponibles a PowerShell
+    # -CommandType cmdlet filtra perquè només surten els cmdlets
+    # | envia la sortida de la primera ordre a la següent
+    # Measure-Object compta o mesura els elements rebuts
+    # el resultat final indica quants cmdlets hi ha disponibles
 ```
 
-Això mostra que les ordres es poden combinar i processar.
+---
+
+# Estructura bàsica a PowerShell
+
+Sortida:
+```powershell
+    Count    : 236
+    Average  :
+    Sum      :
+    Maximum  :
+    Minimum  :
+    Property :
+```
 
 ---
 
 # Idea clau de PowerShell
 
-Segons el llibre, **PowerShell està basat en objectes**.
+**PowerShell està basat en objectes**  
 
 Això implica que:
 
@@ -114,43 +192,14 @@ Això implica que:
 
 ---
 
-# Estructura bàsica a cron
-
-En GNU/Linux, el llibre mostra aquesta estructura:
-
-```text
-minute hour day_of_month month day_of_week command_to_be_executed
-```
-
-La línia es divideix en:
-
-- la **programació**
-- el **comando de ejecución**
-
----
-
-# Símbols habituals a cron
-
-El llibre destaca aquests símbols:
-
-- `*` qualsevol valor
-- `,` llista de valors
-- `-` rang de valors
-- `/` pas de valor
-- `#` comentari
-
----
-
 # 7.3 PowerShell com a entorn de guions
-
-El llibre el presenta com:
 
 - línia de comandes de **Windows**
 - entorn basat en **scripts**
 - eina per combinar ordres pròpies
 - recurs d'administració del sistema
 
-No és només una consola: també és un entorn per construir seqüències administratives.
+No és només una consola: també és un entorn per construir seqüències administratives  
 
 ---
 
