@@ -2,381 +2,390 @@
 
 ## Índex
 - [7.1 Context dels llenguatges de guions en l’administració de sistemes](#71-context-dels-llenguatges-de-guions-en-ladministració-de-sistemes)
-- [7.2 Estructures bàsiques del llenguatge segons el llibre](#72-estructures-bàsiques-del-llenguatge-segons-el-llibre)
-- [7.3 PowerShell com a entorn de guions en Windows](#73-powershell-com-a-entorn-de-guions-en-windows)
-- [7.4 Administració de comptes d’usuari amb PowerShell](#74-administració-de-comptes-dusuari-amb-powershell)
-- [7.5 Administració de processos amb PowerShell](#75-administració-de-processos-amb-powershell)
-- [7.6 Administració de serveis amb PowerShell](#76-administració-de-serveis-amb-powershell)
-- [7.7 Execució de guions i automatització en GNU/Linux](#77-execució-de-guions-i-automatització-en-gnulinux)
-- [7.8 Cron i el format d’execució de comandes i scripts](#78-cron-i-el-format-dexecució-de-comandes-i-scripts)
-- [7.9 Crontab, anacron i at](#79-crontab-anacron-i-at)
-- [7.10 Consulta de cmdlets i llibreries de funcions segons el llibre](#710-consulta-de-cmdlets-i-llibreries-de-funcions-segons-el-llibre)
-- [7.11 Documentació dels guions creats](#711-documentació-dels-guions-creats)
-- [7.12 Eines gràfiques, comprovació i implantació en entorns lliures i propietaris](#712-eines-gràfiques-comprovació-i-implantació-en-entorns-lliures-i-propietaris)
+- [7.2 Bash com a entorn de guions en GNU/Linux](#72-bash-com-a-entorn-de-guions-en-gnulinux)
+- [7.3 Estructures bàsiques del llenguatge en Bash](#73-estructures-bàsiques-del-llenguatge-en-bash)
+- [7.4 Administració de comptes d’usuari amb Bash](#74-administració-de-comptes-dusuari-amb-bash)
+- [7.5 Administració de processos amb Bash](#75-administració-de-processos-amb-bash)
+- [7.6 Administració de serveis amb Bash](#76-administració-de-serveis-amb-bash)
+- [7.7 Consulta d’ordres, ajuda i funcions disponibles a GNU/Linux](#77-consulta-dordres-ajuda-i-funcions-disponibles-a-gnulinux)
+- [7.8 Documentació, comprovació i depuració bàsica dels guions](#78-documentació-comprovació-i-depuració-bàsica-dels-guions)
+- [7.9 Execució programada de guions a GNU/Linux](#79-execució-programada-de-guions-a-gnulinux)
+- [7.10 Entorn complementari en sistemes propietaris: PowerShell](#710-entorn-complementari-en-sistemes-propietaris-powershell)
+- [7.11 Implantació en sistemes lliures i propietaris i orientació pràctica de la RA07](#711-implantació-en-sistemes-lliures-i-propietaris-i-orientació-pràctica-de-la-ra07)
 
 ## 7.1 Context dels llenguatges de guions en l’administració de sistemes
 
-En l’administració de sistemes, un llenguatge de guions no s’ha d’entendre només com una manera d’escriure ordres a mà, sinó com una forma de convertir tasques habituals de gestió en seqüències repetibles, controlables i més eficients. El llibre ho mostra des de dos entorns diferents: d’una banda, **Windows**, on apareix **PowerShell** com a eina de línia d’ordres i també com a entorn basat en scripts; i, de l’altra, **GNU/Linux**, on la idea d’automatització es concreta sobretot en la planificació de tasques amb eines com **cron**, **crontab**, **anacron** i **at**.
+Un llenguatge de guions és un llenguatge pensat per escriure ordres en forma de fitxer perquè el sistema les executi una darrere l’altra. En administració de sistemes, això permet convertir tasques habituals en seqüències repetibles, controlables i més eficients.
 
-A Windows, el llibre explica que Microsoft ha anat incorporant una línia de comandes que ha evolucionat fins a arribar a PowerShell. Aquesta eina no es limita a executar ordres simples, sinó que permet administrar característiques del sistema operatiu i actuar també com a entorn basat en scripts. Això vol dir que el mateix administrador pot combinar comandes i construir seqüències per facilitar la gestió del sistema.
+La idea central d’aquesta RA és que moltes accions del sistema no s’han de fer sempre manualment. Consultar usuaris, revisar processos, comprovar serveis, llançar ordres de manteniment o repetir comprovacions es pot resoldre millor amb guions.
 
-A GNU/Linux, el llibre planteja el mateix problema des d’un altre angle. Hi ha moltes tasques que no interessa executar manualment cada vegada: còpies de seguretat, neteges periòdiques, revisions del sistema o execució programada de processos. Per això apareixen eines específiques de planificació que permeten definir **quan** s’ha d’executar una ordre i **quin programa o script** s’ha de llançar.
+Dins d’aquesta unitat apareixen dos entorns generals:
 
-Per tant, dins de la RA07, el paper dels llenguatges de guions queda lligat a tres idees bàsiques que sí apareixen clarament al llibre:
+- **GNU/Linux**, on el treball amb **Bash** i amb scripts de shell encaixa directament amb l’administració del sistema
+- **Windows**, on **PowerShell** permet una lògica semblant dins d’un entorn propietari
 
-- administració del sistema des de línia de comandes
-- combinació d’ordres per gestionar usuaris, processos i serveis
-- automatització d’execucions en moments concrets o de forma periòdica
+Ara bé, en el desenvolupament pràctic d’aquesta RA el pes principal recau en **GNU/Linux**. Això vol dir que la major part d’exemples, pràctiques i aplicacions administratives es poden centrar en **Bash**, en l’ús d’ordres del sistema i en la construcció de scripts orientats a tasques reals.
 
-Això connecta directament amb el sentit pràctic d’aquesta RA: no es tracta només de conèixer comandes soltes, sinó d’entendre com es poden fer servir com a base per construir tasques d’administració més estables i repetibles.
+Per tant, el paper dels llenguatges de guions queda lligat a aquestes idees bàsiques:
 
-## 7.2 Estructures bàsiques del llenguatge
+- administració del sistema des de línia d’ordres
+- combinació de comandes per gestionar usuaris, processos i serveis
+- reutilització d’ordres dins d’un mateix script
+- execució controlada o programada de guions quan convingui
 
-En **PowerShell**, la unitat bàsica de treball és el **cmdlet**. El llibre explica que totes les ordres reben aquest nom i que, per consultar els cmdlets disponibles, es pot executar una ordre com aquesta:
+Això dona sentit a la RA07: no es tracta només de memoritzar ordres soltes, sinó d’entendre com es poden combinar dins d’un guió per fer l’administració més estable, més clara i més repetible.
 
-```powershell
-Get-Command -CommandType cmdlet | Measure-Object
+## 7.2 Bash com a entorn de guions en GNU/Linux
+
+En GNU/Linux, el llenguatge de guions més habitual és **Bash**. Quan es treballa des del terminal, moltes ordres es poden executar una per una, però també es poden escriure dins d’un fitxer de text i executar-se com un bloc únic. Aquest fitxer és un **script de shell**.
+
+Un script de Bash no és més que una seqüència d’ordres, variables i estructures bàsiques de control que el sistema interpreta i executa pas a pas. Això permet automatitzar comprovacions, reutilitzar procediments i deixar preparades tasques d’administració que es poden tornar a executar sempre que faci falta.
+
+La forma més habitual de començar un script és aquesta:
+
+```bash
+#!/bin/bash
 ```
 
-Això ja ens mostra diversos trets importants:
+Aquesta primera línia indica quin intèrpret ha d’executar el fitxer. A partir d’aquí, el guió pot incorporar ordres del sistema, comentaris, variables i estructures de control.
 
-- l’ordre té un nom principal
-- es poden afegir **paràmetres**
-- es poden combinar diverses parts en una mateixa línia
-- es poden filtrar o processar resultats
+Exemple mínim:
 
-**PowerShell està basat en objectes**. Això el diferencia d’altres línies de comandes més tradicionals, perquè la informació que es rep no és només text, sinó objectes sobre els quals després es poden aplicar més ordres.
-
-En **GNU/Linux**, l’estructura bàsica que el llibre desenvolupa amb més detall és la de **cron**. Aquí el llenguatge no es presenta com una sintaxi de programació general, sinó com una expressió de planificació temporal. El llibre indica que les línies de programació es divideixen en dues parts:
-
-- la **programació**
-- el **comando de execución**
-
-La forma general que mostra és aquesta:
-
-```text
-minute hour day_of_month month day_of_week command_to_be_executed
+```bash
+#!/bin/bash
+echo "Iniciant comprovació del sistema"
+whoami
+date
 ```
 
-Cada camp té un rang concret:
+Aquest exemple mostra una idea molt important: Bash no és només una consola interactiva, sinó també un entorn de guions on es poden reunir diverses ordres dins d’un sol fitxer executable.
 
-- `minute` → 0-59
-- `hour` → 0-23
-- `day of month` → 1-31
-- `month` → 1-12 o JAN-DEC
-- `day of week` → 0-6 o SUN-SAT
-- `command to be execute` → ordre que s’ha d’executar
+Per això, dins de la RA07, Bash encaixa molt bé com a base per treballar:
 
-El llibre també incorpora símbols especials que formen part d’aquesta estructura:
+- scripts de comprovació d’usuaris
+- scripts de consulta de processos
+- scripts de revisió de serveis
+- guions de manteniment i control bàsic del sistema
 
-- `*` indica qualsevol valor
-- `,` separa llistes de valors
-- `#` s’utilitza com a comentari
-- `-` indica un rang de valors
-- `/` indica un pas de valor
+## 7.3 Estructures bàsiques del llenguatge en Bash
 
-Per tant, quan en aquesta RA es parla d’**estructures del llenguatge**, el que sí es pot afirmar a partir del llibre és que aquestes estructures es concreten, sobretot, en:
+En Bash, les estructures bàsiques del llenguatge es veuen sobretot en la manera d’escriure ordres, guardar valors i controlar el flux del guió.
 
-- ordres amb **nom + paràmetres** a PowerShell
-- filtres, seleccions i comandes combinades
-- expressions temporals formades per camps a cron
-- referència a un programa o script que serà executat
+### Ordres amb nom i paràmetres
 
-## 7.3 PowerShell com a entorn de guions en Windows
-
-El llibre presenta **PowerShell** com una peça central dins de l’administració de Windows. Explica que Microsoft ha inclòs una línia de comandes que ha evolucionat al llarg dels seus sistemes operatius i que actualment està present en tots els sistemes Microsoft, sempre que hi hagi disponible el framework **.NET** en què es basa.
-
-Però el punt més important per a aquesta RA és un altre: PowerShell **no es defineix només com una línia de comandes**, sinó també com un **entorn basat en scripts**, on es poden desenvolupar comandes pròpies o combinar-ne diverses per facilitar la gestió del sistema.
-
-Aquesta idea és essencial, perquè converteix PowerShell en molt més que una consola per escriure ordres aïllades. En termes pràctics, l’administrador pot fer servir PowerShell per:
-
-- consultar informació del sistema
-- gestionar usuaris
-- administrar processos
-- gestionar serveis
-- encadenar ordres per resoldre tasques d’administració
-
-El llibre indica dues maneres d’executar PowerShell:
-
-- amb un entorn gràfic anomenat **PowerShell ISE**
-- amb una **consola de text** semblant a la línia de comandes tradicional
-
-Això és important perquè mostra dues formes diferents de treballar:
-
-- una més orientada a l’escriptura i organització de comandes dins d’un entorn visual
-- una altra més directa, ràpida i centrada en la consola
-
-També explica que PowerShell recull totes les característiques de `cmd.exe`, però en va més enllà. Segons el llibre, també permet accedir a elements interns més profunds de Windows i gestionar-los des d’una lògica més potent.
-
-Dins del context de la RA07, això significa que PowerShell és el bloc del llibre que més clarament respon a aquests punts:
-
-- creació de guions a partir de comandes combinades
-- interpretació d’ordres del sistema
-- adaptació d’ordres per a tasques d’administració
-- implantació d’aquest tipus de treball dins de sistemes propietaris
-
-## 7.4 Administració de comptes d’usuari amb PowerShell
-
-Un dels primers exemples clars que ofereix el llibre és l’ús de PowerShell per a l’**administració de comptes d’usuari**. Aquest és un dels nuclis pràctics més directament alineats amb la RA07, perquè mostra com un conjunt d’ordres pot servir per resoldre una tasca administrativa concreta.
-
-El llibre parteix d’una idea bàsica: una compte d’usuari està formada per un nom i una contrasenya, i aquests elements formen el conjunt de credencials que serveixen per identificar una persona dins del sistema.
-
-A partir d’aquí, mostra diverses ordres relacionades amb la gestió d’usuaris:
-
-### Veure comptes d’usuari
-
-```powershell
-Get-LocalUser
+```bash
+ls -l /home
+# ls és la comanda
+# -l és un paràmetre
+# /home és la ruta sobre la qual actua
 ```
 
-Aquesta ordre permet consultar els usuaris locals existents al sistema.
+### Comandes combinades
 
-### Crear un usuari
-
-El llibre explica que aquesta acció s’ha de fer com a administrador i mostra una seqüència com aquesta:
-
-```powershell
-#Ejecutar PowerShell como administrador
-#Crear la contraseña con SecureString
-$pass=ConvertTo-SecureString "1234Asdf_" -asplaintext -force
-#Crear usuario con contraseña
-New-LocalUser usuario -Password $pass
+```bash
+ps aux | grep ssh
+# ps aux mostra processos
+# grep ssh filtra els que contenen ssh
 ```
 
-Aquí es veu amb claredat que l’administració d’usuaris no es resol amb una única ordre aïllada, sinó amb una petita seqüència d’accions:
+### Filtres i selecció de resultats
 
-- preparar la contrasenya
-- convertir-la al format requerit
-- crear el compte amb la contrasenya assignada
-
-### Canviar la contrasenya d’un usuari
-
-```powershell
-#El usuario tiene que existir
-$pass2=ConvertTo-SecureString "11234Aaaa_" -asplaintext -force
-Set-LocalUser -Name usuario -Password $pass2
+```bash
+cat /etc/passwd | grep hector
+# cat /etc/passwd mostra el contingut del fitxer
+# grep hector selecciona només les línies on surt hector
 ```
 
-### Eliminar un usuari
+### Variables
 
-```powershell
-#Es necesario abrir PowerShell como administrador
-Remove-LocalUser usuario
+```bash
+USUARI="hector"
+echo $USUARI
+# USUARI guarda un valor
+# echo $USUARI mostra el contingut de la variable
 ```
 
-Aquest bloc mostra molt bé una de les aplicacions reals del scripting dins del sistema operatiu: transformar la gestió manual d’usuaris en ordres repetibles i fàcils de tornar a executar. Encara que el llibre ho presenti en exemples simples, la idea de fons és clarament la mateixa que demana la RA07.
+### Condicionals `if`
 
-## 7.5 Administració de processos amb PowerShell
+```bash
+if id "$USUARI" >/dev/null 2>&1; then
+    echo "L'usuari existeix"
+else
+    echo "L'usuari no existeix"
+fi
+# if comprova una condició
+# then executa el bloc si es compleix
+# else executa el bloc alternatiu
+# fi tanca l'estructura
+```
 
-El segon gran bloc que presenta el llibre dins de PowerShell és la **gestió de processos**. Igual que passava amb els usuaris, aquí també es veu com la línia de comandes es pot utilitzar per fer tasques que, d’una altra manera, sovint es farien des d’una interfície gràfica.
+### Bucles `for`
 
-El llibre diu explícitament que, igual que amb l’administrador de tasques de Windows, amb PowerShell es poden gestionar processos prescindint de la interfície gràfica del sistema.
+```bash
+for FITXER in *.txt; do
+    echo $FITXER
+done
+# for recorre una llista d'elements
+# do inicia el bloc
+# done tanca el bucle
+```
+
+### Bucles `while`
+
+```bash
+COMPTADOR=1
+while [ $COMPTADOR -le 3 ]; do
+    echo $COMPTADOR
+    COMPTADOR=$((COMPTADOR+1))
+done
+# while repeteix el bloc mentre es compleixi la condició
+```
+
+Aquestes estructures són suficients per començar a construir scripts útils d’administració. Amb elles es poden fer comprovacions, repetir accions, filtrar informació i prendre decisions segons el resultat de les ordres.
+
+## 7.4 Administració de comptes d’usuari amb Bash
+
+Un dels usos més naturals d’un guió en GNU/Linux és la comprovació i gestió bàsica de comptes d’usuari. No cal que un script creï usuaris de manera automàtica per ser útil. També pot comprovar si existeixen, mostrar informació rellevant o validar dades abans de fer una acció administrativa.
+
+### Comprovar si un usuari existeix
+
+```bash
+id alumnera07
+```
+
+Aquesta ordre retorna informació de l’usuari si existeix. Si no existeix, dona error. Això permet fer comprovacions dins d’un `if`.
+
+### Consultar la base local d’usuaris
+
+```bash
+getent passwd alumnera07
+```
+
+Aquesta ordre consulta l’entrada corresponent a l’usuari dins de la base de comptes del sistema.
+
+### Veure el fitxer de comptes
+
+```bash
+cat /etc/passwd
+```
+
+Aquesta ordre mostra el contingut del fitxer on apareixen els comptes locals.
+
+### Exemple de comprovació dins d’un guió
+
+```bash
+USUARI="alumnera07"
+
+if id "$USUARI" >/dev/null 2>&1; then
+    echo "L'usuari $USUARI existeix"
+    getent passwd "$USUARI"
+else
+    echo "L'usuari $USUARI no existeix"
+fi
+```
+
+Aquest bloc ja representa molt bé la lògica de la RA07: una ordre no es fa servir sola, sinó integrada dins d’un guió que comprova, decideix i mostra resultats.
+
+En una versió més avançada, també es poden emprar ordres com `useradd`, `usermod` o `userdel`, però fins i tot sense arribar-hi ja es pot treballar el criteri curricular de construir guions útils per a l’administració de comptes.
+
+## 7.5 Administració de processos amb Bash
+
+Els processos també es presten molt bé al treball amb scripts. En lloc d’obrir eines gràfiques, es poden consultar, filtrar i tractar directament des del terminal.
 
 ### Consultar processos
 
-Per obtenir la llista de processos que s’estan executant:
-
-```powershell
-Get-Process | more
+```bash
+ps aux
 ```
 
-El llibre també mostra que es pot filtrar per nom:
+Mostra els processos actius del sistema.
 
-```powershell
-Get-Process -Name win*
-```
-
-I que es pot obtenir informació més detallada d’un procés concret:
-
-```powershell
-Get-Process -Name explorer | Format-List *
-```
-
-Això fa visible una altra idea molt pròpia d’aquesta RA: la línia de comandes no només serveix per llançar ordres, sinó també per **consultar**, **filtrar** i **adaptar** la informació obtinguda.
-
-### Detenir un procés
-
-El llibre mostra dues possibilitats. Una és detenir processos pel seu nom. L’altra és fer-ho pel seu identificador.
-
-Exemple amb identificador i confirmació:
-
-```powershell
-Stop-Process -id 2456 -confirm
-```
-
-El mateix llibre explica que l’argument `-confirm` força que el sistema demani confirmació abans de detenir el procés. Això encaixa amb la idea de control i comprovació abans d’executar accions sensibles.
-
-### Iniciar un nou procés
-
-Per iniciar un procés nou, el llibre mostra l’ús de `Start-Process` i posa com a exemple el bloc de notes:
-
-```powershell
-Start-Process notepad.exe
-```
-
-En aquest cas es veu clarament com PowerShell pot actuar com a entorn de llançament i control de processos del sistema.
-
-## 7.6 Administració de serveis amb PowerShell
-
-El tercer bloc de PowerShell que desenvolupa el llibre és la **gestió de serveis**. Aquest apartat és especialment important, perquè connecta de manera molt directa amb el punt curricular que parla de guions per a l’administració de serveis del sistema operatiu.
-
-El llibre explica que obtenir els serveis d’un equip local o remot és senzill si s’empra el cmdlet **Get-Service**.
-
-### Consultar serveis
-
-Sense paràmetres, s’obtenen tots els serveis:
-
-```powershell
-Get-Service
-```
-
-També es poden filtrar per nom:
-
-```powershell
-Get-Service -Name se*
-```
-
-I el llibre remarca que el paràmetre `ComputerName` permet consultar serveis en equips remots. Per exemple:
-
-```powershell
-Get-Service -ComputerName ServerPpal
-```
-
-### Aturar, iniciar, suspendre i reiniciar serveis
-
-El llibre dona una sèrie d’ordres molt clares per a un cas concret, el servei de la cua d’impressió:
-
-```powershell
-Stop-Service -Name spooler
-Start-Service -Name spooler
-Suspend-Service -Name spooler
-Restart-Service -Name spooler
-```
-
-Amb això es veu una altra característica important dels guions d’administració: treballar sobre un mateix objecte o servei repetint un patró d’accions molt clar.
-
-En termes de RA07, aquest bloc del llibre permet desenvolupar de manera directa els continguts relacionats amb:
-
-- administració de serveis del sistema
-- adaptació d’ordres a necessitats concretes
-- execució controlada d’accions administratives
-- ús de comandes en sistemes propietaris
-
-## 7.7 Execució de guions i automatització en GNU/Linux
-
-A la part de GNU/Linux, el llibre aborda el problema dels guions des d’una perspectiva orientada a la **execució automàtica d’ordres i scripts**. Aquí no es posa tant l’accent en una consola orientada a objectes com en PowerShell, sinó en la necessitat d’indicar al sistema **què** s’ha d’executar, **quan** s’ha d’executar i quin **programa o script** serà el que realment es llançarà.
-
-El llibre diu que programar una tasca és una de les accions més comunes i freqüents quan s’administra un sistema operatiu. També remarca que, a Windows, això es pot fer amb **Tareas Programadas**, mentre que a GNU/Linux aquest procediment es fa habitualment des de terminal.
-
-L’objectiu d’aquestes eines és permetre execucions automàtiques en:
-
-- un període de temps concret
-- dates determinades
-- tasques periòdiques
-- processos relacionats amb el control del sistema
-- execució d’ordres o scripts personalitzats
-
-Aquest últim punt és especialment important, perquè el mateix llibre ja fa servir l’expressió **scripts personalizados**, cosa que encaixa de manera directa amb el nucli de la RA07.
-
-En aquest bloc, les eines principals que apareixen són:
-
-- **cron**
-- **crontab**
-- **anacron**
-- **at**
-- utilitats gràfiques com **Webmin** i **GNOME schedule**
-
-Per tant, dins de GNU/Linux, el llibre vincula l’ús de guions sobretot amb la possibilitat de deixar preparades execucions automàtiques d’ordres i scripts del sistema. Això és important perquè aquí la planificació no apareix com un tema separat d’organització, sinó com el mecanisme que permet posar en funcionament un guió administratiu en el moment previst.
-
-## 7.8 Cron i el format d’execució de comandes i scripts
-
-El primer gran element que desenvolupa el llibre és **cron**. El defineix com un dimoni que s’executa des del moment en què arrenca el sistema i que comprova si hi ha alguna ordre, programa o script que hagi de ser executat d’acord amb l’hora configurada.
-
-El llibre insisteix en una advertència important: la **zona horària** ha d’estar ben configurada, perquè altrament les execucions poden no coincidir amb allò que s’havia previst.
-
-També identifica el servei amb el nom **crond** i mostra diferents maneres de comprovar-ne l’estat:
+### Buscar un procés concret
 
 ```bash
-/etc/rc.d/init.d/crond status
+pgrep bash
 ```
 
+Permet localitzar processos pel seu nom.
+
+### Filtrar amb `ps` i `grep`
+
 ```bash
-/etc/init.d/crond status
+ps -ef | grep ssh
 ```
+
+Aquesta combinació mostra com una informació general es pot filtrar per obtenir només allò que interessa.
+
+### Exemple de comprovació dins d’un script
+
+```bash
+PROCES="bash"
+
+if pgrep "$PROCES" >/dev/null 2>&1; then
+    echo "El procés $PROCES està en execució"
+else
+    echo "El procés $PROCES no està en execució"
+fi
+```
+
+Això permet construir guions senzills de supervisió o verificació. En una línia semblant, també es podrien fer servir ordres com `kill` o `pkill` quan el guió hagi d’actuar sobre processos, però el nucli formatiu és entendre la lògica de consulta, filtratge i decisió.
+
+## 7.6 Administració de serveis amb Bash
+
+Una altra aplicació molt clara dels guions és la gestió de serveis del sistema. En entorns GNU/Linux actuals, això es fa habitualment amb `systemctl`.
+
+### Consultar l’estat d’un servei
+
+```bash
+systemctl status ssh
+```
+
+Aquesta ordre mostra informació completa del servei.
+
+### Comprovar si està actiu
+
+```bash
+systemctl is-active ssh
+```
+
+Aquesta ordre simplifica la comprovació i és especialment útil dins d’un script.
+
+### Exemple de comprovació dins d’un guió
+
+```bash
+SERVEI="ssh"
+
+if systemctl is-active "$SERVEI" >/dev/null 2>&1; then
+    echo "El servei $SERVEI està actiu"
+else
+    echo "El servei $SERVEI no està actiu"
+fi
+```
+
+### Altres accions habituals
+
+```bash
+systemctl start ssh
+systemctl stop ssh
+systemctl restart ssh
+```
+
+Aquest bloc connecta directament amb un dels objectius més clars de la RA07: construir guions per a l’administració de serveis del sistema operatiu.
+
+## 7.7 Consulta d’ordres, ajuda i funcions disponibles a GNU/Linux
+
+Abans d’escriure o adaptar un guió, cal saber quines ordres estan disponibles i com funcionen. En GNU/Linux això es resol, sobretot, amb eines de consulta i ajuda.
+
+### Consultar el manual d’una ordre
+
+```bash
+man ps
+man systemctl
+man id
+```
+
+### Veure ajuda interna de Bash
+
+```bash
+help
+help echo
+```
+
+### Saber on és una ordre
+
+```bash
+which bash
+which systemctl
+```
+
+### Saber de quin tipus és una ordre
+
+```bash
+type echo
+type cd
+type ls
+```
+
+Aquestes ordres són molt importants dins de la RA07 perquè mostren que un guió no s’escriu des de zero sense referències. Sovint es construeix consultant l’entorn, reutilitzant ordres existents i combinant-les de manera controlada.
+
+Si la pràctica de la unitat es focalitza en Linux, aquest apartat guanya encara més pes, perquè ajuda l’alumne a entendre d’on surten les ordres que després incorporarà als seus scripts.
+
+## 7.8 Documentació, comprovació i depuració bàsica dels guions
+
+Un guió no s’hauria de deixar sense documentar. Fins i tot en scripts senzills, convé identificar-ne la finalitat i separar-ne bé els blocs.
+
+Exemple d’inici documentat:
+
+```bash
+#!/bin/bash
+# Pràctica RA07
+# Autor: Nom Cognoms
+# Objectiu: Comprovar usuaris, processos i serveis
+```
+
+Els comentaris amb `#` permeten explicar què fa cada part del guió i faciliten molt la lectura posterior.
+
+A més de documentar, també cal comprovar i depurar. En aquesta RA això no s’ha d’entendre com una teoria molt avançada, sinó com un conjunt d’accions bàsiques:
+
+- revisar si la sintaxi està ben escrita
+- verificar si una ordre retorna el resultat esperat
+- comprovar si les condicions `if` entren al bloc correcte
+- veure si una variable té el valor previst
+- detectar errors de permisos o d’ordres inexistents
+
+Exemple útil de depuració bàsica:
+
+```bash
+echo $USUARI
+```
+
+Això permet veure si la variable conté realment el valor que esperàvem.
+
+També és important donar permís d’execució al fitxer:
+
+```bash
+chmod +x ra07_admin_linux.sh
+```
+
+I executar-lo així:
+
+```bash
+./ra07_admin_linux.sh
+```
+
+Per tant, documentar i depurar no són parts separades del treball amb scripts, sinó una part normal del seu ús real.
+
+## 7.9 Execució programada de guions a GNU/Linux
+
+Tot i que el nucli de la RA07 queda millor representat per Bash i pels scripts d’administració, a GNU/Linux també existeixen eines que permeten executar aquests guions en moments concrets.
+
+### Cron
+
+`cron` és el servei que comprova si hi ha ordres o scripts que s’hagin d’executar segons una programació establerta.
 
 ```bash
 service crond status
-```
-
-I, si cal instal·lar-lo:
-
-```bash
 apt-get install cron
 ```
 
-### Fitxers i elements implicats
-
-El llibre enumera diversos elements importants relacionats amb cron:
-
-- el dimoni `crond`
-- el fitxer de configuració per al root: `/etc/crontab`
-- el fitxer d’inici i parada del dimoni: `/etc/init.d/cron`
-- l’ordre de programació de tasques: `crontab`
-- el sistema d’informes o logs: `/var/log/cron`
-
-### Sintaxi de la programació
-
-Per programar una tasca, el llibre diu que s’ha d’afegir una línia amb una expressió de cron. Aquesta línia queda estructurada així:
-
-```text
-minute hour day_of_month month day_of_week command_to_be_executed
-```
-
-Els valors possibles i els símbols especials ja s’han vist a l’apartat 7.2, però aquí prenen sentit complet, perquè el llibre els presenta com la base real de la planificació.
-
-Això converteix cron en un exemple molt clar de llenguatge de guió orientat a l’administració: no és un llenguatge generalista, però sí una sintaxi definida que permet interpretar una expressió temporal i automatitzar l’execució d’ordres i scripts del sistema.
-
-## 7.9 Crontab, anacron i at
-
 ### Crontab
 
-Un cop definida la programació, el llibre explica que s’ha de col·locar en un lloc on el dimoni la pugui llegir. Aquí entra en joc **crontab**, que es descriu com un arxiu especial que conté la programació de tasques que executarà cron.
-
-El llibre també explica que l’ordre `crontab` és la responsable de gestionar els fitxers de planificació assignats a cada usuari. La sintaxi general que dona és aquesta:
+`crontab` permet editar o consultar la programació de tasques d’un usuari.
 
 ```bash
-crontab [-l e r u] fichero
+crontab -l
+crontab -e
 ```
 
-I en detalla aquests paràmetres:
-
-- `-l` mostra el fitxer de configuració de l’usuari
-- `-e` edita el fitxer de configuració de l’usuari
-- `-r` esborra el fitxer de configuració de l’usuari
-- `-u usuario` especifica quin és l’usuari propietari de la tasca
-
-El llibre també mostra un exemple clar d’edició i una programació concreta:
+Exemple de línia programada:
 
 ```bash
-crontab -e
 30 0 * * * root find /tmp -type f -empty -delete
 ```
 
-En aquest cas, la planificació indica una execució diària a les 00:30 per eliminar fitxers buits del directori `/tmp`.
-
 ### Anacron
 
-El llibre explica una limitació de cron: només funciona si el sistema està encès en el moment previst. Si una tasca s’havia de fer mentre el sistema estava apagat, no s’executarà.
-
-Per resoldre aquest problema apareix **anacron**, que es defineix com un planificador que no requereix que el sistema estigui funcionant contínuament. Quan el sistema arrenca, revisa quines tasques no s’han executat i les realitza.
-
-Segons el llibre, les tasques d’anacron solen residir als directoris del tipus:
-
-```text
-/etc/cron.*
-```
-
-I la instal·lació del servei es fa amb:
+`anacron` serveix per executar tasques que no s’han pogut llançar en el moment previst perquè el sistema estava apagat.
 
 ```bash
 apt-get install anacron
@@ -384,159 +393,49 @@ apt-get install anacron
 
 ### At
 
-Finalment, el llibre diferencia **at** de cron. Mentre que cron està pensat per a execucions periòdiques, **at** serveix per programar una tasca **una sola vegada**, en un moment determinat.
-
-La instal·lació es fa amb:
+`at` permet llançar una ordre o un script una sola vegada en un moment determinat.
 
 ```bash
 apt-get install at
-```
-
-El llibre també indica dos fitxers de control d’accés molt importants:
-
-- `/etc/at.allow` → si existeix, només els usuaris que hi apareixen poden executar `at`
-- `/etc/at.deny` → si existeix aquest fitxer i no l’anterior, els usuaris que hi apareixen no poden executar `at`
-
-La sintaxi general que mostra és:
-
-```text
-HH[:]MM[am|pm] [Mes día] programa_script
-```
-
-I dona aquest exemple:
-
-```bash
 at 12am tomorrow < script.sh
 ```
 
-Aquest és, probablement, un dels exemples més directes del llibre en què apareix de manera explícita la idea d’executar un **script** preparat per l’usuari.
+Aquest bloc és útil perquè mostra una aplicació complementària dels guions en GNU/Linux: un script no només es pot executar manualment, sinó també deixar-se preparat per a una execució posterior.
 
-## 7.10 Consulta de cmdlets i llibreries de funcions segons el llibre
+## 7.10 Entorn complementari en sistemes propietaris: PowerShell
 
-Un dels punts que la curricular inclou de manera explícita és la **consulta i ús de llibreries de funcions**. El llibre no desenvolupa aquest tema com un capítol independent llarg, però sí aporta una base clara des de **PowerShell**: el treball amb **cmdlets** i la seva consulta.
+Encara que el focus pràctic de la unitat es desplaci cap a GNU/Linux, continua sent útil mantenir una referència complementària a **PowerShell** com a entorn de guions en Windows.
 
-A l’inici del bloc dedicat a PowerShell, el llibre explica que totes les ordres reben el nom de **cmdlets**. També mostra una manera directa de consultar-los:
+PowerShell és una línia de comandes i també un entorn basat en scripts. En aquest cas, l’ordre bàsica pròpia és el **cmdlet**, i moltes ordres segueixen el format **Verb-Noun**.
+
+Exemple:
 
 ```powershell
 Get-Command -CommandType cmdlet | Measure-Object
+# Get-Command mostra les comandes disponibles a PowerShell
+# -CommandType cmdlet filtra perquè només surtin els cmdlets
+# Measure-Object compta els elements rebuts
 ```
 
-Aquest exemple és important perquè permet entendre dues idees molt relacionades amb el criteri curricular:
+A PowerShell també es poden treballar tasques semblants a les de GNU/Linux:
 
-- abans d’escriure o adaptar un guió, cal saber **quines ordres o funcions** ofereix l’entorn
-- el treball amb scripts no parteix sempre de zero, sinó que sovint consisteix a **consultar**, **seleccionar** i **combinar** funcions ja disponibles
+- consultar usuaris amb `Get-LocalUser`
+- consultar processos amb `Get-Process`
+- consultar serveis amb `Get-Service`
 
-Per tant, encara que el llibre no utilitzi una teoria extensa sobre biblioteques o mòduls com a apartat separat, sí que mostra una lògica clara de consulta del conjunt de funcions disponibles dins de l’entorn de scripting. En el cas de Windows, aquesta idea queda representada sobretot per la consulta de cmdlets de PowerShell.
+## 7.11 Implantació en sistemes lliures i propietaris i orientació pràctica de la RA07
 
-Això permet relacionar el contingut del llibre amb una idea central de la RA07: un guió d’administració no es construeix només escrivint instruccions noves, sinó també reutilitzant les ordres i funcions que el sistema ja posa a disposició de l’administrador.
+El bloc principal queda així:
 
-## 7.11 Documentació dels guions creats
+- **GNU/Linux** com a entorn principal de pràctica
+- **Bash** com a llenguatge de guions principal
+- scripts centrats en **usuaris**, **processos** i **serveis**
+- execució programada de guions com a aplicació complementària
 
-La curricular de la RA07 també demana **documentar els guions creats**. El llibre no dedica un apartat exclusiu i llarg a la documentació formal dels scripts, però sí dona elements suficients per entendre quina informació convé deixar reflectida quan es treballa amb ordres programades o amb seqüències administratives.
+I el bloc complementari queda així:
 
-En el cas de **cron**, per exemple, el mateix format obliga a identificar dades essencials de la tasca:
+- **Windows** com a entorn propietari de referència
+- **PowerShell** com a exemple paral·lel d’administració per scripts
 
-- quan s’executa
-- quina ordre, programa o script es llança
-- si la programació és periòdica o puntual
-- quin usuari la té associada, en el cas que pertoqui
 
-El llibre també indica que el símbol `#` s’utilitza com a **comentari** dins de les expressions de cron. Aquest detall és petit, però és molt rellevant des del punt de vista documental, perquè permet afegir aclariments i fer més entenedor el contingut d’un fitxer de configuració o d’un conjunt de programacions.
 
-A més, quan el llibre mostra ordres com aquestes:
-
-```bash
-crontab -l
-crontab -e
-```
-
-o la revisió de fitxers com:
-
-```text
-/var/log/cron
-```
-
-està deixant clar que treballar amb scripts i programacions no consisteix només a crear-los, sinó també a **revisar-los**, **mantenir-los** i poder entendre posteriorment què fan i quan s’executen.
-
-En el cas de **PowerShell**, la documentació també es pot entendre a partir de la manera com el llibre presenta les seqüències d’exemple: ordres separades, objectiu concret de cada pas i relació clara entre acció i resultat. Això no és una metodologia externa afegida, sinó una conseqüència directa de com el mateix llibre mostra la creació d’ordres administratives sobre usuaris, processos i serveis.
-
-Per tant, dins d’aquesta RA07, documentar els guions creats significa sobretot deixar identificats aquests elements mínims:
-
-- finalitat del guió o de la tasca programada
-- ordres o cmdlets que utilitza
-- usuari, servei o procés sobre el qual actua
-- moment d’execució, si es tracta d’una tasca programada
-- comprovacions fetes després de l’execució
-
-Aquesta lectura es manté fidel al llibre, perquè surt directament dels exemples de cron, crontab, logs i seqüències de PowerShell que s’hi mostren.
-
-## 7.12 Eines gràfiques, comprovació i implantació en entorns lliures i propietaris
-
-El llibre no limita el treball amb guions a la consola pura. També presenta eines gràfiques que poden servir de suport.
-
-### Entorn propietari: Windows
-
-A Windows, el llibre distingeix dues formes d’execució de PowerShell:
-
-- **PowerShell ISE**, com a entorn gràfic
-- la **consola de text**, com a entorn més directe
-
-Això mostra que els guions es poden treballar tant en format més visual com des de línia d’ordres pura.
-
-### Entorn lliure: GNU/Linux
-
-A GNU/Linux, el llibre menciona eines gràfiques com:
-
-- **Webmin**
-- **GNOME schedule**
-
-Segons el llibre, Webmin és una interfície web per a l’administració del sistema en entorns Unix. Entre altres funcions, permet gestionar tasques programades o planificades sense necessitat de recórrer directament a fitxers de text o a comandes.
-
-GNOME schedule apareix com una utilitat gràfica de planificació des de l’entorn GNOME i la seva instal·lació es fa amb:
-
-```bash
-apt-get install gnome-schedule
-```
-
-### Comprovació, depuració bàsica i adaptació segons el que mostra el llibre
-
-El llibre no desenvolupa un bloc teòric independent sobre “depuració de scripts” com si fos un tema separat, però sí mostra diverses formes de **comprovació** i **control** que formen part del treball real amb guions i ordres d’administració.
-
-En concret, al llibre apareixen aquestes idees:
-
-- comprovar l’estat d’un servei abans o després d’automatitzar-lo, com en el cas de `crond`
-- revisar la sintaxi dels camps de cron abans de donar per bona una planificació
-- editar i consultar la configuració amb `crontab -e` i `crontab -l`
-- fer servir paràmetres de confirmació en accions delicades, com `Stop-Process -id 2456 -confirm`
-- filtrar resultats i mostrar només allò que interessa per entendre millor què està passant
-- revisar fitxers de registre com `/var/log/cron`
-
-Dit d’una altra manera, el llibre sí permet treballar la idea de **prova**, **comprovació**, **adaptació** i **correcció bàsica**, però sense convertir-ho en una teoria externa separada del que mostren els exemples reals del sistema.
-
-### Implantació en sistemes lliures i propietaris
-
-Un dels aspectes més útils del llibre per a la RA07 és que mostra clarament la implantació dels guions en dos entorns diferents:
-
-- **sistemes propietaris**, mitjançant PowerShell en Windows
-- **sistemes lliures**, mitjançant cron, crontab, anacron, at i eines gràfiques en GNU/Linux
-
-Això permet tancar la RA07 amb una idea important: els llenguatges de guions no s’utilitzen igual a tots els sistemes, però en tots dos casos serveixen per una mateixa finalitat general:
-
-- administrar el sistema
-- reduir tasques manuals repetitives
-- controlar usuaris, processos i serveis
-- programar execucions automàtiques
-- fer la gestió del sistema més previsible i més repetible
-
-### Tancament del bloc
-
-Segons el llibre, el treball amb llenguatges de guions en sistemes operatius es concreta sobretot en aquests punts:
-
-- ús de **PowerShell** per administrar usuaris, processos i serveis a Windows
-- ús de **cmdlets** i consulta d’ordres disponibles com a base per construir guions
-- ús de **cron**, **crontab**, **anacron** i **at** per automatitzar l’execució d’ordres i scripts a GNU/Linux
-- suport d’eines gràfiques com **PowerShell ISE**, **Webmin** i **GNOME schedule**
-- necessitat de revisar sintaxi, estats, registres i resultats abans de donar per bona una execució
-- conveniència de deixar identificada la finalitat i configuració dels guions i de les tasques programades
-
-Aquest és el marc que el llibre aporta per desenvolupar la RA07 sense afegir-hi contingut extern.
