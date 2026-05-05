@@ -32,14 +32,27 @@ Treballarem amb aquest escenari mínim:
 - accés a terminal
 - permisos suficients per consultar serveis i fitxers del sistema
 - editor de text per crear l’script
+- un usuari normal del sistema amb accés al seu directori personal
+- una carpeta de treball preparada dins del directori personal
+
+Per aquesta pràctica, la carpeta de treball serà aquesta:
+
+```text
+~/ra07_script
+├── dades
+├── logs
+└── backups
+```
 
 ## Enunciat
 
 Has de crear un script anomenat:
 
 ```bash
-ra07_tasca_automatica.sh
+~/ra07_script/activitat_ra07.sh
 ```
+
+Aquest script s’haurà de desar dins de la carpeta de treball indicada a l’apartat anterior.
 
 Aquest script haurà de fer, com a mínim, aquestes accions:
 
@@ -50,7 +63,7 @@ Quan s’executi, el guió ha d’indicar que la tasca ha començat.
 El guió ha de comprovar si existeix un usuari amb el nom:
 
 ```bash
-alumne
+root
 ```
 
 Si existeix, ha de mostrar un missatge indicant-ho.  
@@ -78,27 +91,39 @@ o bé un altre servei equivalent que existeixi al teu sistema.
 El guió ha d’indicar si el servei està actiu o no.
 
 ### 5. Crear una còpia de seguretat
-El guió ha de generar una còpia d’un fitxer de text dins del directori de treball.
+El guió ha de generar una **còpia comprimida** de la carpeta de dades dins del directori de treball.
 
-Per exemple, si existeix un fitxer anomenat:
-
-```bash
-dades.txt
-```
-
-el guió n’ha de crear una còpia amb un nom semblant a:
+La carpeta d’origen serà:
 
 ```bash
-dades_backup.txt
+~/ra07_script/dades
 ```
 
-Si el fitxer original no existeix, el guió ho ha d’indicar.
+La còpia s’haurà de desar dins de:
+
+```bash
+~/ra07_script/backups
+```
+
+El fitxer generat haurà de ser de tipus:
+
+```bash
+.tar.gz
+```
+
+Si la carpeta d’origen no existeix, el guió ho ha d’indicar.
 
 ### 6. Crear un fitxer de log
-Tot el que fa el guió ha de quedar registrat en un fitxer de log, per exemple:
+Tot el que fa el guió ha de quedar registrat en un fitxer de log dins de la carpeta:
 
 ```bash
-registre.log
+~/ra07_script/logs
+```
+
+Per exemple:
+
+```bash
+~/ra07_script/logs/registre.log
 ```
 
 Aquest fitxer ha de contenir com a mínim:
@@ -128,22 +153,26 @@ L’script ha de complir aquestes condicions:
 - ha d’utilitzar ordres pròpies de Linux relacionades amb administració del sistema
 - ha d’estar comentat mínimament perquè s’entengui què fa cada part
 - ha de tenir permís d’execució
-
+- ha de generar una còpia comprimida real d’una carpeta
+- ha d’escriure informació dins d’un fitxer de log
 
 ## Què has d’entregar 
 
 ### 1. El fitxer del script
 ```text
-ra07_tasca_automatica.sh
+~/ra07_script/activitat_ra07.sh
 ```
 
 ### 2. Una captura o captures de pantalla
 On es vegi:
 
+- la carpeta de treball creada
 - el contingut del script
 - l’execució del script
 - el resultat del log generat
-- la comprovació que la còpia de seguretat s’ha creat correctament
+- la comprovació que la còpia comprimida s’ha creat correctament
+- el fitxer `.tar.gz` creat dins de `backups`
+- el contingut de la carpeta `dades` abans de la compressió
 
 ## Criteris de valoració
 
@@ -153,6 +182,8 @@ Es valorarà especialment:
 - que faci totes les comprovacions demanades
 - que utilitzi bé estructures bàsiques de Bash
 - que el log reculli la informació mínima necessària
+- que les variables estiguin ben definides
+- que la còpia comprimida s’hagi creat correctament
 - que el codi estigui ordenat i entenedor
 - que la pràctica quedi ben presentada
 
