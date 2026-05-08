@@ -150,19 +150,45 @@ echo $USUARI
 - condicionals `if`
 ```bash
 if id "$USUARI" >/dev/null 2>&1; then
-    echo "L'usuari existeix"
-else
-    echo "L'usuari no existeix"
+# if inicia una estructura condicional
+# id "$USUARI" intenta comprovar si l'usuari existeix al sistema
+# "$USUARI" agafa el valor de la variable USUARI
+# >/dev/null fa que la sortida normal no es mostri per pantalla
+# 2>&1 fa que els errors tampoc es mostrin per pantalla
+# then indica que aquí comença el bloc que s'executarà si la comanda ha anat bé
+
+    echo "L'usuari existeix" # mostra aquest missatge si l'usuari existeix
+
+else # else indica el bloc alternatiu, és a dir, què s'ha de fer si la condició no es compleix
+
+    echo "L'usuari no existeix" # mostra aquest missatge si l'usuari no existeix
+
 fi
+# fi tanca l'estructura if
 ```
+
+---
+
+# 7.3 Estructures bàsiques del llenguatge
 
 - bucles `for` o `while`
 ```bash
 COMPTADOR=1
+# crea la variable COMPTADOR i li dona el valor inicial 1
+
 while [ $COMPTADOR -le 3 ]; do
+# while vol dir "mentre"
+# [ $COMPTADOR -le 3 ] comprova si COMPTADOR és menor o igual que 3
+# do indica que aquí comença el bloc que es repetirà
+
     echo $COMPTADOR
+    # mostra per pantalla el valor actual de la variable COMPTADOR
+
     COMPTADOR=$((COMPTADOR+1))
+    # suma 1 al valor actual de COMPTADOR. El resultat es guarda de nou a la mateixa variable
+
 done
+# done tanca el bucle while. Quan arriba aquí, Bash torna a comprovar la condició del while
 ```
 
 ---
@@ -173,8 +199,17 @@ Ordres útils:
 
 ```bash
 id alumnera07
+# comprova si l'usuari alumnera07 existeix
+# si existeix, mostra informació com el UID, el GID i els grups als quals pertany
+# si no existeix, retorna un error
 getent passwd alumnera07
+# consulta la base de dades d'usuaris del sistema
+# si l'usuari alumnera07 existeix, mostra la seva línia del registre passwd
+# aquesta línia sol incloure nom d'usuari, UID, GID, directori personal i shell
 cat /etc/passwd
+# mostra tot el contingut del fitxer /etc/passwd
+# aquest fitxer conté el llistat d'usuaris del sistema
+# és útil per veure tots els comptes, no només un en concret
 ```
 
 Aquestes ordres permeten comprovar i consultar comptes del sistema
@@ -185,13 +220,27 @@ Aquestes ordres permeten comprovar i consultar comptes del sistema
 
 ```bash
 USUARI="alumnera07"
+# crea la variable USUARI i li dona el valor "alumnera07"
 
 if id "$USUARI" >/dev/null 2>&1; then
-    echo "L'usuari $USUARI existeix"
-    getent passwd "$USUARI"
-else
-    echo "L'usuari $USUARI no existeix"
+# if inicia una estructura condicional
+# id "$USUARI" intenta comprovar si l'usuari existeix al sistema
+# "$USUARI" fa servir el valor guardat a la variable
+# >/dev/null fa que la sortida normal no es mostri per pantalla
+# 2>&1 fa que els errors tampoc es mostrin per pantalla
+# then indica que aquí comença el bloc que s'executarà si la comanda ha anat bé
+
+    echo "L'usuari $USUARI existeix" # mostra un missatge indicant que l'usuari existeix
+
+    getent passwd "$USUARI" # mostra la línia de l'usuari dins de la base de dades d'usuaris del sistema. 
+    # normalment hi apareix el nom, UID, GID, directori personal i shell
+
+else # else indica què s'ha de fer si l'usuari no existeix
+
+    echo "L'usuari $USUARI no existeix" # mostra un missatge indicant que l'usuari no existeix
+
 fi
+# fi tanca l'estructura if
 ```
 
 ---
@@ -202,8 +251,21 @@ Ordres habituals:
 
 ```bash
 ps aux
+# mostra tots els processos del sistema
+# a indica que es mostren processos de tots els usuaris
+# u mostra la informació en format orientat a usuari
+# x inclou també processos que no depenen directament d'un terminal
+
 pgrep bash
+# busca processos que tinguin el nom "bash"
+# si en troba, mostra el PID de cada procés trobat
+# si no en troba cap, no mostra res i retorna error
+
 ps -ef | grep ssh
+# ps -ef mostra tots els processos del sistema en format complet
+# | envia la sortida de ps a la comanda següent
+# grep ssh filtra només les línies que contenen el text "ssh"
+# és útil per localitzar processos relacionats amb ssh
 ```
 
 Això permet consultar, filtrar i comprovar processos des del terminal
@@ -214,12 +276,27 @@ Això permet consultar, filtrar i comprovar processos des del terminal
 
 ```bash
 PROCES="bash"
+# crea la variable PROCES i li dona el valor "bash"
 
 if pgrep "$PROCES" >/dev/null 2>&1; then
+# if inicia una estructura condicional
+# pgrep "$PROCES" busca processos que tinguin aquest nom
+# "$PROCES" fa servir el valor guardat a la variable
+# >/dev/null fa que la sortida normal no es mostri per pantalla
+# 2>&1 fa que els errors tampoc es mostrin per pantalla
+# then indica que aquí comença el bloc que s'executarà si la comanda ha anat bé
+
     echo "El procés $PROCES està en execució"
+    # mostra aquest missatge si s'ha trobat algun procés amb aquest nom
+
 else
+# else indica què s'ha de fer si no s'ha trobat cap procés amb aquest nom
+
     echo "El procés $PROCES no està en execució"
+    # mostra aquest missatge si el procés no existeix o no està actiu
+
 fi
+# fi tanca l'estructura if
 ```
 
 ---
@@ -242,12 +319,27 @@ systemctl restart ssh
 
 ```bash
 SERVEI="ssh"
+# crea la variable SERVEI i li dona el valor "ssh"
 
 if systemctl is-active "$SERVEI" >/dev/null 2>&1; then
+# if inicia una estructura condicional
+# systemctl is-active "$SERVEI" comprova si el servei indicat està actiu
+# "$SERVEI" fa servir el valor guardat a la variable
+# >/dev/null fa que la sortida normal no es mostri per pantalla
+# 2>&1 fa que els errors tampoc es mostrin per pantalla
+# then indica que aquí comença el bloc que s'executarà si la comanda ha anat bé
+
     echo "El servei $SERVEI està actiu"
+    # mostra aquest missatge si el servei està actiu
+
 else
+# else indica què s'ha de fer si el servei no està actiu o no existeix
+
     echo "El servei $SERVEI no està actiu"
+    # mostra aquest missatge si el servei no està actiu
+
 fi
+# fi tanca l'estructura if
 ```
 
 ---
@@ -258,10 +350,24 @@ Eines útils abans d’escriure un guió:
 
 ```bash
 man ps
+# mostra el manual de la comanda ps
+# serveix per consultar què fa la comanda, quins paràmetres admet i com s'utilitza
+
 man systemctl
+# mostra el manual de la comanda systemctl
+# és útil per veure com consultar, iniciar, aturar o reiniciar serveis
+
 help
+# mostra ajuda sobre ordres internes del shell
+# no serveix per a totes les comandes del sistema, sinó sobretot per a les pròpies de Bash
+
 which bash
+# indica on es troba l'executable de bash dins del sistema
+# per exemple, pot mostrar una ruta com /usr/bin/bash o /bin/bash
+
 type echo
+# indica quin tipus d'ordre és "echo"
+# permet saber si és una ordre interna del shell, un executable extern, un àlies o una funció
 ```
 
 Això permet consultar què fa cada ordre i reutilitzar-la dins del script
