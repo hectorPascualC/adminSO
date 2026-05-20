@@ -28,4 +28,15 @@ va a extraordinaria, pendent següent evaluació
 
 - Yeray:
 nota final: 7,57
-si uni: 7,567
+si uni: 7,567 
+
+- Mario:
+va a extraordinaria, pendent següent evaluació
+
+- Miguel Ramirez:
+va a extraordinaria, pendent següent evaluació 
+
+- Ivan Roman:
+va a extraordinaria, pendent següent evaluació 
+
+- Pau: 
