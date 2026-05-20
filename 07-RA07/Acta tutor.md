@@ -26,4 +26,6 @@ va a extraordinaria, pendent següent evaluació
 - Marc Pous:
 va a extraordinaria, pendent següent evaluació
 
-- 
+- Yeray:
+nota final: 7,57
+si uni: 7,567
