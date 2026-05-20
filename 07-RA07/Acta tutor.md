@@ -45,4 +45,7 @@ va a extraordinaria, pendent següent evaluació
 - Erik:
 va a extraordinaria, pendent següent evaluació 
 
+- Tarun:
+va a extraordinaria, pendent següent evaluació 
+
 - Lizzy:
