@@ -12,5 +12,7 @@ va a extraordinaria, pendent següent evaluació
 va a extraordinaria, pendent següent evaluació
 
 - Brahim:
+va a extraordinaria, pendent següent evaluació
 
-- :
+- Gil:
+va a extraordinaria, pendent següent evaluació
