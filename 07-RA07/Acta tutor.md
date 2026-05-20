@@ -16,3 +16,14 @@ va a extraordinaria, pendent següent evaluació
 
 - Gil:
 va a extraordinaria, pendent següent evaluació
+
+- Alejandro: 
+va a extraordinaria, pendent següent evaluació
+
+- Marco Antonio:
+va a extraordinaria, pendent següent evaluació
+
+- Marc Pous:
+va a extraordinaria, pendent següent evaluació
+
+- 
