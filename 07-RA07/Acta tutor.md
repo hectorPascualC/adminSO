@@ -49,3 +49,4 @@ va a extraordinaria, pendent següent evaluació
 va a extraordinaria, pendent següent evaluació 
 
 - Lizzy:
+va a extraordinaria, pendent següent evaluació 
