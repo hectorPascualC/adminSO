@@ -9,3 +9,8 @@ si uni: 8,541
 va a extraordinaria, pendent següent evaluació
 
 - Hugo Dominguez:
+va a extraordinaria, pendent següent evaluació
+
+- Brahim:
+
+- :
