@@ -40,3 +40,9 @@ va a extraordinaria, pendent següent evaluació
 va a extraordinaria, pendent següent evaluació 
 
 - Pau: 
+va a extraordinaria, pendent següent evaluació 
+
+- Erik:
+va a extraordinaria, pendent següent evaluació 
+
+- Lizzy:
